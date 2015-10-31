@@ -58,17 +58,20 @@ public class UIDelegate extends JFrame {
 		btn.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
+				String btnName = btn.getActionCommand();
 				int state = e.getStateChange();
 
 				if (state == ItemEvent.SELECTED) {
-					String btnName = btn.getActionCommand();
-
 					if (btnName.equals("Calendar")) {
+						btnCalendar.setEnabled(false);
+						btnNotebook.setEnabled(true);
 						btnNotebook.setSelected(false);
 						updatePanel(topPanel, calendarView.getTopPanel(), notebookView.getTopPanel());
 						updatePanel(sidePanel, calendarView.getSidePanel(), notebookView.getSidePanel());
 						refreshUI();
 					} else if (btnName.equals("Notebook")) {
+						btnNotebook.setEnabled(false);
+						btnCalendar.setEnabled(true);
 						btnCalendar.setSelected(false);
 						updatePanel(topPanel, notebookView.getTopPanel(), calendarView.getTopPanel());
 						updatePanel(sidePanel, notebookView.getSidePanel(), calendarView.getSidePanel());
@@ -108,6 +111,7 @@ public class UIDelegate extends JFrame {
 		
 		btnCalendar = createToggleButton("Calendar", true);
 		btnNotebook = createToggleButton("Notebook", false);
+		btnCalendar.setEnabled(false);
 		sidePanel.setPreferredSize(SIDE_PANEL_SIZE);
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);

@@ -34,6 +34,7 @@ public class CalendarView extends ModeView {
 		
 		btnMonth = createToggleButton("Month", true);
 		btnAgenda = createToggleButton("Agenda", false);
+		btnMonth.setEnabled(false);
 		btnToday = createButton("Today");
 		topPanel.add(btnMonth);
 		topPanel.add(btnAgenda);
@@ -53,8 +54,12 @@ public class CalendarView extends ModeView {
 					String btnName = btn.getActionCommand();
 
 					if (btnName.equals("Month")) {
+						btnMonth.setEnabled(false);
+						btnAgenda.setEnabled(true);
 						btnAgenda.setSelected(false);
 					} else if (btnName.equals("Agenda")) {
+						btnAgenda.setEnabled(false);
+						btnMonth.setEnabled(true);
 						btnMonth.setSelected(false);
 					}
 				}
