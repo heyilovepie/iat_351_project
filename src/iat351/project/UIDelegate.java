@@ -63,16 +63,12 @@ public class UIDelegate extends JFrame {
 
 				if (state == ItemEvent.SELECTED) {
 					if (btnName.equals("Calendar")) {
-						btnCalendar.setEnabled(false);
-						btnNotebook.setEnabled(true);
-						btnNotebook.setSelected(false);
+						updateToggleButtons(btnCalendar, btnNotebook);
 						updatePanel(topPanel, calendarView.getTopPanel(), notebookView.getTopPanel());
 						updatePanel(sidePanel, calendarView.getSidePanel(), notebookView.getSidePanel());
 						refreshUI();
 					} else if (btnName.equals("Notebook")) {
-						btnNotebook.setEnabled(false);
-						btnCalendar.setEnabled(true);
-						btnCalendar.setSelected(false);
+						updateToggleButtons(btnNotebook, btnCalendar);
 						updatePanel(topPanel, notebookView.getTopPanel(), calendarView.getTopPanel());
 						updatePanel(sidePanel, notebookView.getSidePanel(), calendarView.getSidePanel());
 						refreshUI();
@@ -99,24 +95,31 @@ public class UIDelegate extends JFrame {
 	}
 	
 	private void initPanels() {		
+		topPanel.setBackground(Color.GRAY);
+		topPanel.add(calendarView.getTopPanel());
+		bottomPanel.setLayout(new BorderLayout());
+		bottomPanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
+		
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.GRAY);
-		topPanel.setBackground(Color.GRAY);
-		bottomPanel.setLayout(new BorderLayout());
-		
-		topPanel.add(calendarView.getTopPanel());
-		bottomPanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		mainPanel.add(bottomPanel, BorderLayout.CENTER);
 		
 		btnCalendar = createToggleButton("Calendar", true);
 		btnNotebook = createToggleButton("Notebook", false);
 		btnCalendar.setEnabled(false);
+		
 		sidePanel.setPreferredSize(SIDE_PANEL_SIZE);
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);
 		sidePanel.add(btnNotebook);
 		sidePanel.add(calendarView.getSidePanel());
+	}
+	
+	private void updateToggleButtons(JToggleButton selectedBtn, JToggleButton unselectedBtn) {
+		selectedBtn.setEnabled(false);
+		unselectedBtn.setEnabled(true);
+		unselectedBtn.setSelected(false);
 	}
 	
 	private void updatePanel(JPanel panel, JPanel add, JPanel remove) {
