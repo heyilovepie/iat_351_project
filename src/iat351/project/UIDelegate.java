@@ -34,81 +34,18 @@ public class UIDelegate extends JFrame {
 	private JPanel mainPanel = new JPanel();
 	private JPanel topPanel = new JPanel();
 	private JPanel bottomPanel = new JPanel();
-	private JPanel calendarTopPanel = new JPanel();
-	private JPanel notebookTopPanel = new JPanel();
+	private CalendarView calendarView = new CalendarView(this, SIDE_PANEL_SIZE);
+	private NotebookView notebookView = new NotebookView(this, SIDE_PANEL_SIZE);
 	
 	private JPanel sidePanel = new JPanel();
-	private JPanel calendarSidePanel = new JPanel();
-	private JPanel notebookSidePanel = new JPanel();
-	private JTextPane textPane = new JTextPane();
-	private JScrollPane scrollPane = new JScrollPane(textPane);
 
 	// Buttons
 	private JToggleButton btnCalendar;
-	private JButton btnNewEvent;
-	private JButton btnToday;
-	private JToggleButton btnMonth;
-	private JToggleButton btnAgenda;
-
 	private JToggleButton btnNotebook;
-	private JButton btnNewNotebook;
 	
-	public UIDelegate() {
-		textPane.setText("This is a text pane");
-		
+	public UIDelegate() {		
 		btnCalendar = createToggleButton("Calendar", true);
 		btnNotebook = createToggleButton("Notebook", false);
-		
-		btnMonth = createToggleButton("Month", true);
-		btnAgenda = createToggleButton("Agenda", false);
-		btnToday = createButton("Today");
-		calendarTopPanel.add(btnMonth);
-		calendarTopPanel.add(btnAgenda);
-		calendarTopPanel.add(btnToday);	
-		
-		// Calendar side panel
-		btnNewEvent = createButton("New Event");
-		calendarSidePanel.setLayout(new BoxLayout(calendarSidePanel, BoxLayout.PAGE_AXIS));
-		calendarSidePanel.setPreferredSize(SIDE_PANEL_SIZE);
-		calendarSidePanel.add(btnNewEvent);
-		btnNewEvent.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "test");
-			}
-		});
-
-		// Notebook side panel
-		btnNewNotebook = createButton("New Notebook");
-		notebookSidePanel.setLayout(new BoxLayout(notebookSidePanel, BoxLayout.PAGE_AXIS));
-		notebookSidePanel.setPreferredSize(SIDE_PANEL_SIZE);
-		notebookSidePanel.add(btnNewNotebook);
-
-		// Font families
-		JComboBox<String> fontsDropdown = new JComboBox<String>();
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		String[] fontNames = ge.getAvailableFontFamilyNames();
-
-		for (int i = 0; i < fontNames.length; i++) {
-			fontsDropdown.addItem(fontNames[i]);
-		}
-		fontsDropdown.setSelectedItem("Arial");
-		
-		// Font size
-		JComboBox<Float> fontSizeDropdown = new JComboBox<Float>();
-		fontSizeDropdown.setEditable(true);
-		for (int i = 4; i <= 24; i += 4) {
-			fontSizeDropdown.addItem(new Float(i));
-		}
-		fontSizeDropdown.setSelectedItem(new Float(14));
-		
-		notebookTopPanel.add(fontsDropdown);
-		notebookTopPanel.add(fontSizeDropdown);
-		notebookTopPanel.add(createButton("B"));
-		notebookTopPanel.add(createButton("I"));
-		notebookTopPanel.add(createButton("U"));
-
-		// TODO Refactor above code into classes/methods after figuring how to organize it
 		initPanels();
 		initWindow();
 	} // Constructor
@@ -131,18 +68,14 @@ public class UIDelegate extends JFrame {
 
 					if (btnName.equals("Calendar")) {
 						btnNotebook.setSelected(false);
-						updatePanel(topPanel, calendarTopPanel, notebookTopPanel);
-						updatePanel(sidePanel, calendarSidePanel, notebookSidePanel);
+						updatePanel(topPanel, calendarView.getTopPanel(), notebookView.getTopPanel());
+						updatePanel(sidePanel, calendarView.getSidePanel(), notebookView.getSidePanel());
 						refreshUI();
 					} else if (btnName.equals("Notebook")) {
 						btnCalendar.setSelected(false);
-						updatePanel(topPanel, notebookTopPanel, calendarTopPanel);
-						updatePanel(sidePanel, notebookSidePanel, calendarSidePanel);
+						updatePanel(topPanel, notebookView.getTopPanel(), calendarView.getTopPanel());
+						updatePanel(sidePanel, notebookView.getSidePanel(), calendarView.getSidePanel());
 						refreshUI();
-					} else if (btnName.equals("Month")) {
-						btnAgenda.setSelected(false);
-					} else if (btnName.equals("Agenda")) {
-						btnMonth.setSelected(false);
 					}
 				}
 			}
@@ -150,56 +83,6 @@ public class UIDelegate extends JFrame {
 
 		return btn;
 	} // createToggleButton
-
-	private JButton createButton(String text) {
-		JButton btn = new JButton(text);
-
-		btn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String btnName = btn.getActionCommand();
-
-				if (btnName.equals("New Notebook")) {
-					// Add node
-					DefaultMutableTreeNode root = new DefaultMutableTreeNode("New Notebook");
-					root.add(new DefaultMutableTreeNode("New Page"));
-					JTree tree = new JTree(root);
-
-					// Create right-click context menu
-					JPopupMenu menu = new JPopupMenu();
-					createMenuItem(menu, "Rename");
-					createMenuItem(menu, "Delete");
-					tree.setComponentPopupMenu(menu);
-
-					// Update tree
-					notebookSidePanel.add(tree);
-					refreshUI();
-				} else if (btnName.equals("New Event")) {
-					System.out.println("TODO new event");
-				}
-			}
-		}); // addActionListener
-
-		return btn;
-	} // createButton
-
-	private void createMenuItem(JPopupMenu menu, String text) {
-		JMenuItem item = new JMenuItem(text);
-
-		item.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String action = e.getActionCommand();
-				if (action.equals("Rename")) {
-					System.out.println("TODO rename node");
-				} else if (action.equals("Delete")) {
-					System.out.println("TODO delete node");
-				}
-			}
-		});
-
-		menu.add(item);
-	} // createMenuItem
 
 	// ===================================
 	// View
@@ -221,8 +104,8 @@ public class UIDelegate extends JFrame {
 		topPanel.setBackground(Color.GRAY);
 		bottomPanel.setLayout(new BorderLayout());
 		
-		topPanel.add(calendarTopPanel);
-		bottomPanel.add(scrollPane, BorderLayout.CENTER);
+		topPanel.add(calendarView.getTopPanel());
+		bottomPanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		mainPanel.add(bottomPanel, BorderLayout.CENTER);
 		
@@ -230,7 +113,7 @@ public class UIDelegate extends JFrame {
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);
 		sidePanel.add(btnNotebook);
-		sidePanel.add(calendarSidePanel);
+		sidePanel.add(calendarView.getSidePanel());
 	}
 	
 	private void updatePanel(JPanel panel, JPanel add, JPanel remove) {
@@ -238,7 +121,7 @@ public class UIDelegate extends JFrame {
 		panel.remove(remove);
 	}
 
-	private void refreshUI() {
+	public void refreshUI() {
 		revalidate();
 		repaint();
 	}
