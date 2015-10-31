@@ -272,12 +272,9 @@ class FontAndSizeAction extends StyledEditorKit.StyledTextAction {
 		fontSizePanel.add(new JLabel("Size"));
 		fontSizeChooser = new JComboBox();
 		fontSizeChooser.setEditable(true);
-		fontSizeChooser.addItem(new Float(4));
-		fontSizeChooser.addItem(new Float(8));
-		fontSizeChooser.addItem(new Float(12));
-		fontSizeChooser.addItem(new Float(16));
-		fontSizeChooser.addItem(new Float(20));
-		fontSizeChooser.addItem(new Float(24));
+		for (int i = 4; i <= 24; i += 4) {
+			fontSizeChooser.addItem(new Float(i).intValue());
+		}
 		fontSizeChooser.setSelectedItem(new Float(fontSize));
 		fontSizePanel.add(fontSizeChooser);
 		choosers.add(fontSizePanel);

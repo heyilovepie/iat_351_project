@@ -12,12 +12,17 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JToggleButton;
 import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
-public class View extends JFrame {
+public class UIDelegate extends JFrame {
 	private static final int HEIGHT = 600;
 	private static final int WIDTH = 1000;
 	private static final Dimension MIN_SIDE_PANEL_SIZE = new Dimension(WIDTH / 5, HEIGHT);
@@ -35,7 +40,7 @@ public class View extends JFrame {
 	// private JScrollPane scrollPane = new JScrollPane();
 	// private JSplitPane splitPane;
 
-	public View() {
+	public UIDelegate() {
 		// Buttons
 		btnCalendar = createToggleButton("Calendar", true);
 		btnNotebook = createToggleButton("Notebook", false);
@@ -92,16 +97,40 @@ public class View extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String btnName = btn.getActionCommand();
-				
+
 				if (btnName.equals("New Notebook")) {
 					DefaultMutableTreeNode root = new DefaultMutableTreeNode("New Notebook");
 					root.add(new DefaultMutableTreeNode("New Page"));
-					sidePanel.add(new JTree(root));
-					validate();
+					JTree tree = new JTree(root);
+					
+					JPopupMenu menu = new JPopupMenu();
+					createMenuItem(menu, "Rename");
+					createMenuItem(menu, "Delete");
+				    tree.setComponentPopupMenu(menu);
+
+					sidePanel.add(tree);
+					revalidate();
+					repaint();
+				}
+			}
+		}); // addActionListener
+
+		return btn;
+	} // createButton
+	
+	private void createMenuItem(JPopupMenu menu, String text) {
+		JMenuItem item = new JMenuItem(text);
+		item.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String action = e.getActionCommand();
+				if (action.equals("Rename")) {
+					System.out.println("TODO rename node");
+				} else if (action.equals("Delete")) {
+					System.out.println("TODO delete node");
 				}
 			}
 		});
-
-		return btn;
-	} // createToggleButton
+		menu.add(item);
+	} // createMenuItem
 } // View
