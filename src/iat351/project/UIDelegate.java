@@ -30,10 +30,13 @@ public class UIDelegate extends JFrame {
 	private ArrayList<JToggleButton> modeBtns;
 	private JToggleButton btnCalendar;
 	private JToggleButton btnNotebook;
+	
+	private JPanel calendarSidePanel = new JPanel();
+	private JPanel notebookSidePanel = new JPanel();
 
 	private JButton btnNewNotebook;
+	private JButton btnNewEvent;
 
-	private JTree tree1;
 
 	private JPanel sidePanel = new JPanel();
 	// private JPanel mainPanel = new JPanel();
@@ -41,20 +44,26 @@ public class UIDelegate extends JFrame {
 	// private JSplitPane splitPane;
 
 	public UIDelegate() {
-		// Buttons
+		// Mode buttons
 		btnCalendar = createToggleButton("Calendar", true);
 		btnNotebook = createToggleButton("Notebook", false);
 		modeBtns = new ArrayList<JToggleButton>();
 		modeBtns.add(btnCalendar);
 		modeBtns.add(btnNotebook);
+		
+		// Calendar side panel
+		btnNewEvent = createButton("New Event");
+		calendarSidePanel.add(btnNewEvent);
+		
+		// Notebook side panel
 		btnNewNotebook = createButton("New Notebook");
+		notebookSidePanel.add(btnNewNotebook);
 
-		// Side panel
+		// General side panel
 		sidePanel.setPreferredSize(MIN_SIDE_PANEL_SIZE);
 		sidePanel.setBackground(Color.WHITE);
 		sidePanel.add(btnCalendar);
 		sidePanel.add(btnNotebook);
-		sidePanel.add(btnNewNotebook);
 		add(sidePanel, BorderLayout.WEST);
 
 		// scrollPane.add(sidePanel);
@@ -76,16 +85,29 @@ public class UIDelegate extends JFrame {
 			public void itemStateChanged(ItemEvent e) {
 				int state = e.getStateChange();
 
-				// Set other button to false
 				if (state == ItemEvent.SELECTED) {
+					String btnName = btn.getActionCommand();
+					
+					if (btnName.equals("Calendar")) {
+						sidePanel.add(calendarSidePanel);
+						sidePanel.remove(notebookSidePanel);
+						updateComponents();
+					} else if (btnName.equals("Notebook")) {
+						sidePanel.add(notebookSidePanel);
+						sidePanel.remove(calendarSidePanel);
+						updateComponents();
+					}
+					
+					// Set other mode button to false
 					for (JToggleButton b : modeBtns) {
-						if (!b.getActionCommand().equals(btn.getActionCommand())) {
+						if (!b.getActionCommand().equals(btnName)) {
 							b.setSelected(false);
+							
 						}
 					}
 				}
 			}
-		});
+		}); // addItemListener
 
 		return btn;
 	} // createToggleButton
@@ -99,18 +121,22 @@ public class UIDelegate extends JFrame {
 				String btnName = btn.getActionCommand();
 
 				if (btnName.equals("New Notebook")) {
+					// Add node
 					DefaultMutableTreeNode root = new DefaultMutableTreeNode("New Notebook");
 					root.add(new DefaultMutableTreeNode("New Page"));
 					JTree tree = new JTree(root);
 					
+					// Create right-click context menu
 					JPopupMenu menu = new JPopupMenu();
 					createMenuItem(menu, "Rename");
 					createMenuItem(menu, "Delete");
 				    tree.setComponentPopupMenu(menu);
 
-					sidePanel.add(tree);
-					revalidate();
-					repaint();
+				    // Update tree
+					notebookSidePanel.add(tree);
+					updateComponents();
+				} else if (btnName.equals("New Event")) {
+					System.out.println("TODO new event");
 				}
 			}
 		}); // addActionListener
@@ -120,6 +146,7 @@ public class UIDelegate extends JFrame {
 	
 	private void createMenuItem(JPopupMenu menu, String text) {
 		JMenuItem item = new JMenuItem(text);
+		
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -131,6 +158,12 @@ public class UIDelegate extends JFrame {
 				}
 			}
 		});
+		
 		menu.add(item);
 	} // createMenuItem
+	
+	private void updateComponents() {
+		revalidate();
+		repaint();
+	}
 } // View
