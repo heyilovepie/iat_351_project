@@ -71,6 +71,7 @@ public class UIDelegate extends JFrame {
 						refreshUI();
 					} else if (btnName.equals("Notebook")) {
 						updateToggleButtons(btnNotebook, btnCalendar);
+						updatePanel(topPanel, notebookView.getTopPanel(), calendarView.getTopPanel());
 						updatePanel(bottomPanel, notebookView.getBottomPanel(), calendarView.getBottomPanel());
 						updatePanel(sidePanel, notebookView.getSidePanel(), calendarView.getSidePanel());
 						refreshUI();
