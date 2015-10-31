@@ -42,7 +42,8 @@ public class UIDelegate extends JFrame {
 	private JToggleButton btnCalendar;
 	private JToggleButton btnNotebook;
 	
-	public UIDelegate() {		
+	public UIDelegate() {
+		initToggleButtons();
 		initPanels();
 		initWindow();
 	} // Constructor
@@ -51,8 +52,8 @@ public class UIDelegate extends JFrame {
 	// View & Controller
 	// ===================================
 
-	private JToggleButton createToggleButton(String text, boolean selected) {
-		JToggleButton btn = new JToggleButton(text, selected);
+	private JToggleButton createToggleButton(String text) {
+		JToggleButton btn = new JToggleButton(text);
 		btn.setActionCommand(text);
 
 		btn.addItemListener(new ItemListener() {
@@ -79,19 +80,21 @@ public class UIDelegate extends JFrame {
 
 		return btn;
 	} // createToggleButton
+	
+	public void updateToggleButtons(JToggleButton selectedBtn, JToggleButton unselectedBtn) {
+		selectedBtn.setEnabled(false);
+		unselectedBtn.setEnabled(true);
+		unselectedBtn.setSelected(false);
+	}
 
 	// ===================================
 	// View
 	// ===================================
-
-	private void initWindow() {
-		add(sidePanel, BorderLayout.WEST);
-		add(mainPanel, BorderLayout.CENTER);
-		setTitle("Calendar Notebook");
-		setMinimumSize(MIN_WINDOW_SIZE);
-		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
+	
+	private void initToggleButtons() {
+		btnCalendar = createToggleButton("Calendar");
+		btnNotebook = createToggleButton("Notebook");
+		updateToggleButtons(btnCalendar, btnNotebook);
 	}
 	
 	private void initPanels() {		
@@ -105,10 +108,6 @@ public class UIDelegate extends JFrame {
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		mainPanel.add(bottomPanel, BorderLayout.CENTER);
 		
-		btnCalendar = createToggleButton("Calendar", true);
-		btnNotebook = createToggleButton("Notebook", false);
-		btnCalendar.setEnabled(false);
-		
 		sidePanel.setPreferredSize(SIDE_PANEL_SIZE);
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);
@@ -116,10 +115,14 @@ public class UIDelegate extends JFrame {
 		sidePanel.add(calendarView.getSidePanel());
 	}
 	
-	private void updateToggleButtons(JToggleButton selectedBtn, JToggleButton unselectedBtn) {
-		selectedBtn.setEnabled(false);
-		unselectedBtn.setEnabled(true);
-		unselectedBtn.setSelected(false);
+	private void initWindow() {
+		add(sidePanel, BorderLayout.WEST);
+		add(mainPanel, BorderLayout.CENTER);
+		setTitle("Calendar Notebook");
+		setMinimumSize(MIN_WINDOW_SIZE);
+		setSize(WIDTH, HEIGHT);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setVisible(true);
 	}
 	
 	private void updatePanel(JPanel panel, JPanel add, JPanel remove) {

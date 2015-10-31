@@ -32,17 +32,18 @@ public class CalendarView extends ModeView {
 			}
 		});		
 		
-		btnMonth = createToggleButton("Month", true);
-		btnAgenda = createToggleButton("Agenda", false);
-		btnMonth.setEnabled(false);
+		btnMonth = createToggleButton("Month");
+		btnAgenda = createToggleButton("Agenda");
+		uiDelegate.updateToggleButtons(btnMonth, btnAgenda);
 		btnToday = createButton("Today");
+		
 		topPanel.add(btnMonth);
 		topPanel.add(btnAgenda);
 		topPanel.add(btnToday);	
 	} // Constructor
 	
-	private JToggleButton createToggleButton(String text, boolean selected) {
-		JToggleButton btn = new JToggleButton(text, selected);
+	private JToggleButton createToggleButton(String text) {
+		JToggleButton btn = new JToggleButton(text);
 		btn.setActionCommand(text);
 
 		btn.addItemListener(new ItemListener() {
@@ -52,15 +53,10 @@ public class CalendarView extends ModeView {
 
 				if (state == ItemEvent.SELECTED) {
 					String btnName = btn.getActionCommand();
-
 					if (btnName.equals("Month")) {
-						btnMonth.setEnabled(false);
-						btnAgenda.setEnabled(true);
-						btnAgenda.setSelected(false);
+						uiDelegate.updateToggleButtons(btnMonth, btnAgenda);
 					} else if (btnName.equals("Agenda")) {
-						btnAgenda.setEnabled(false);
-						btnMonth.setEnabled(true);
-						btnMonth.setSelected(false);
+						uiDelegate.updateToggleButtons(btnAgenda, btnMonth);
 					}
 				}
 			}
