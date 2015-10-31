@@ -66,11 +66,12 @@ public class UIDelegate extends JFrame {
 					if (btnName.equals("Calendar")) {
 						updateToggleButtons(btnCalendar, btnNotebook);
 						updatePanel(topPanel, calendarView.getTopPanel(), notebookView.getTopPanel());
+						updatePanel(bottomPanel, calendarView.getBottomPanel(), notebookView.getBottomPanel());
 						updatePanel(sidePanel, calendarView.getSidePanel(), notebookView.getSidePanel());
 						refreshUI();
 					} else if (btnName.equals("Notebook")) {
 						updateToggleButtons(btnNotebook, btnCalendar);
-						updatePanel(topPanel, notebookView.getTopPanel(), calendarView.getTopPanel());
+						updatePanel(bottomPanel, notebookView.getBottomPanel(), calendarView.getBottomPanel());
 						updatePanel(sidePanel, notebookView.getSidePanel(), calendarView.getSidePanel());
 						refreshUI();
 					}
@@ -101,7 +102,7 @@ public class UIDelegate extends JFrame {
 		topPanel.setBackground(Color.GRAY);
 		topPanel.add(calendarView.getTopPanel());
 		bottomPanel.setLayout(new BorderLayout());
-		bottomPanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
+		bottomPanel.add(calendarView.getBottomPanel(), BorderLayout.CENTER);
 		
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.GRAY);

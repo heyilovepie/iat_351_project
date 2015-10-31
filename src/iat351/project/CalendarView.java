@@ -1,6 +1,8 @@
 package iat351.project;
 
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -39,7 +41,28 @@ public class CalendarView extends ModeView {
 		
 		topPanel.add(btnMonth);
 		topPanel.add(btnAgenda);
-		topPanel.add(btnToday);	
+		topPanel.add(btnToday);
+		
+		bottomPanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		int i = 1;
+		for (int col = 0; col < 7; col++) {
+			for (int row = 0; row < 5; row++) {
+				bottomPanel.add(new JButton("" + i), c);
+				c.gridx++;
+				i++;
+			}
+			c.gridx = 0;
+			c.gridy++;
+		}
 	} // Constructor
 	
 	private JToggleButton createToggleButton(String text) {
