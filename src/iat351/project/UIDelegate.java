@@ -34,18 +34,15 @@ public class UIDelegate extends JFrame {
 	private JPanel mainPanel = new JPanel();
 	private JPanel topPanel = new JPanel();
 	private JPanel bottomPanel = new JPanel();
+	private JPanel sidePanel = new JPanel();
 	private CalendarView calendarView = new CalendarView(this, SIDE_PANEL_SIZE);
 	private NotebookView notebookView = new NotebookView(this, SIDE_PANEL_SIZE);
-	
-	private JPanel sidePanel = new JPanel();
 
 	// Buttons
 	private JToggleButton btnCalendar;
 	private JToggleButton btnNotebook;
 	
 	public UIDelegate() {		
-		btnCalendar = createToggleButton("Calendar", true);
-		btnNotebook = createToggleButton("Notebook", false);
 		initPanels();
 		initWindow();
 	} // Constructor
@@ -109,6 +106,8 @@ public class UIDelegate extends JFrame {
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		mainPanel.add(bottomPanel, BorderLayout.CENTER);
 		
+		btnCalendar = createToggleButton("Calendar", true);
+		btnNotebook = createToggleButton("Notebook", false);
 		sidePanel.setPreferredSize(SIDE_PANEL_SIZE);
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);
