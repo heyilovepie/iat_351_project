@@ -14,6 +14,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 
 public class CalendarView extends ModeView {
+	/*
+	 * Stores the view components from the calendar mode so that it can be switched
+	 */
 	private JButton btnNewEvent;
 	private JButton btnToday;
 	private JToggleButton btnMonth;

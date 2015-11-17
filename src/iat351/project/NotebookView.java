@@ -18,6 +18,9 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class NotebookView extends ModeView {
+	/*
+	 * Stores the view components from the notebook mode so that it can be switched
+	 */
 	private JTextPane textPane = new JTextPane();
 	private JScrollPane scrollPane = new JScrollPane(textPane);
 	

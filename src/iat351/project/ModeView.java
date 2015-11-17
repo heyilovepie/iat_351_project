@@ -4,6 +4,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 abstract public class ModeView {
+	/*
+	 * Stores the view components from the modes so that they can be switched
+	 */
 	protected UIDelegate uiDelegate;
 	protected JPanel topPanel = new JPanel();
 	protected JPanel bottomPanel = new JPanel();

@@ -64,18 +64,22 @@ public class UIDelegate extends JFrame {
 		btn.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				String btnName = btn.getActionCommand();
+				// if a toggle button is pressed then change the state of the frame
+				
+				String btnName = btn.getActionCommand(); 
 				int state = e.getStateChange();
 
 				if (state == ItemEvent.SELECTED) {
 					if (btnName.equals("Calendar")) {
 						updateToggleButtons(btnCalendar, btnNotebook);
+						//switch the panels from notebook to calendar
 						updatePanel(topPanel, calendarView.getTopPanel(), notebookView.getTopPanel());
 						updatePanel(bottomPanel, calendarView.getBottomPanel(), notebookView.getBottomPanel());
 						updatePanel(sidePanel, calendarView.getSidePanel(), notebookView.getSidePanel());
 						refreshUI();
 					} else if (btnName.equals("Notebook")) {
 						updateToggleButtons(btnNotebook, btnCalendar);
+						//switch the panels from calendar to notebook
 						updatePanel(topPanel, notebookView.getTopPanel(), calendarView.getTopPanel());
 						updatePanel(bottomPanel, notebookView.getBottomPanel(), calendarView.getBottomPanel());
 						updatePanel(sidePanel, notebookView.getSidePanel(), calendarView.getSidePanel());
@@ -83,12 +87,15 @@ public class UIDelegate extends JFrame {
 					}
 				}
 			}
-		}); // addItemListener
+		}); // end of addItemListener
 
 		return btn;
-	} // createToggleButton
+	} // end of createToggleButton
 	
 	public void updateToggleButtons(JToggleButton selectedBtn, JToggleButton unselectedBtn) {
+		/*
+		 * switch what button is selected
+		 */
 		selectedBtn.setEnabled(false);
 		unselectedBtn.setEnabled(true);
 		unselectedBtn.setSelected(false);
@@ -104,17 +111,20 @@ public class UIDelegate extends JFrame {
 		updateToggleButtons(btnCalendar, btnNotebook);
 	}
 	
-	private void initPanels() {		
+	private void initPanels() {	
+		//top
 		topPanel.setBackground(Color.GRAY);
 		topPanel.add(calendarView.getTopPanel());
 		bottomPanel.setLayout(new BorderLayout());
 		bottomPanel.add(calendarView.getBottomPanel(), BorderLayout.CENTER);
 		
+		//main
 		mainPanel.setLayout(new BorderLayout());
 		mainPanel.setBackground(Color.GRAY);
 		mainPanel.add(topPanel, BorderLayout.NORTH);
 		mainPanel.add(bottomPanel, BorderLayout.CENTER);
 		
+		//side 
 		sidePanel.setPreferredSize(SIDE_PANEL_SIZE);
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);
@@ -123,6 +133,9 @@ public class UIDelegate extends JFrame {
 	}
 	
 	private void initWindow() {
+		/*
+		 * add components to window
+		 */
 		add(sidePanel, BorderLayout.WEST);
 		add(mainPanel, BorderLayout.CENTER);
 		setTitle("Calendar Notebook");
@@ -133,6 +146,9 @@ public class UIDelegate extends JFrame {
 	}
 	
 	private void updatePanel(JPanel panel, JPanel add, JPanel remove) {
+		/*
+		 * add and remove a panel from another panel
+		 */
 		panel.add(add);
 		panel.remove(remove);
 	}
