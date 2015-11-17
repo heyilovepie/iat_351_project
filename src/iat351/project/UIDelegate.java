@@ -24,6 +24,11 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class UIDelegate extends JFrame {
+	/*
+	 * The main JFrame
+	 * Contains all view elements
+	 */
+	
 	// Constants
 	private static final int WIDTH = 1000;
 	private static final int HEIGHT = 600;
