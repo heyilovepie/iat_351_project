@@ -30,7 +30,9 @@ public class EventView extends UIDelegateFrame {
 	 */
 	
 	// Panels
-	private EnterPanel event, date, startTime, endTime, location, tags;
+	public EnterPanel title, location, date, startTime, endTime, tags;
+	public EnterPanel notes = new EnterPanel("Notes", 10); // TODO temp var add buttons 
+	
 	private JPanel addNotePanel, bottomPanel;
 	private JPanel editPanel, viewPanel;
 	
@@ -50,7 +52,7 @@ public class EventView extends UIDelegateFrame {
 	protected void preInit(){
 		//change window size to different that the default
 		WIDTH = 500;
-		HEIGHT = 300;
+		HEIGHT = 400;
 		MIN_WINDOW_SIZE = new Dimension((int) WIDTH, (int) HEIGHT);
 	}
 	
@@ -70,14 +72,22 @@ public class EventView extends UIDelegateFrame {
 	
 	//init
 	protected void initPanels() {
-		event = new EnterPanel("Event: ", 20);
+		title = new EnterPanel("Event: ", 20);
 		date =  new EnterPanel("Date: ", 20);
-		startTime = new EnterPanel("Start Time: ", 20);
-		endTime = new EnterPanel("End Time: ", 20);
+		
+		JPanel timePanel = new JPanel();
+		timePanel.setLayout(new FlowLayout());
+		timePanel.setPreferredSize(new Dimension(WIDTH,  HEIGHT / 6));
+		startTime = new EnterPanel("Start Time: ", 5);
+		endTime = new EnterPanel("End Time: ", 5);
+		timePanel.add(startTime);
+		timePanel.add(endTime);
+		add(timePanel);
+		
 		location = new EnterPanel("Location: ", 20);
 		tags = new EnterPanel("Tags: ", 20);
 		
-		add(event);
+		add(title);
 		add(date);
 		add(startTime);
 		add(endTime);
@@ -86,6 +96,7 @@ public class EventView extends UIDelegateFrame {
 		
 		addNotePanel = new JPanel();
 		addNotePanel.setLayout(new FlowLayout());
+		addNotePanel.setPreferredSize(new Dimension(WIDTH,  HEIGHT / 6));
 		addNote = new JButton("Add Note");	
 		addNotePanel.add(addNote);
 		add(addNotePanel);
@@ -117,6 +128,9 @@ public class EventView extends UIDelegateFrame {
 		add(bottomPanel);
 	}
 	//end if init
+	
+	//get and set
+	
 	
 	public void toggleEdit(){
 		// TODO this is not working!!!

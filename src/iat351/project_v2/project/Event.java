@@ -2,6 +2,9 @@ package iat351.project_v2.project;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,42 +22,61 @@ public class Event {
 	//get the parent that contains the event
 	
 	protected Model model;
+	
 	private String title;
 	private String location;
-	
-	private Date startDate;
-	private Date endDate;
-	private Date createDate;
-	
+	private LocalDate date;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	private ArrayList<String> tags;
 	private ArrayList<Note> notes;
 	
 	public static Map<String, Set<Event>> eventTagsTable = 
 			new HashMap<String, Set<Event>>();
-	
-	public Event(Model model){
-		this.model = model;
-		createDate = getDate();
-	}
 
-	public Event(Model model, Date startDate) {
+	public Event(Model model, LocalDate date) {
 		/*
 		 * Used when you press on a certain day in the calendar instead of "New Event"
 		 */
-		this(model);
-		this.startDate = startDate;
-		this.endDate = startDate;
+		this.model = model;
+		this.date = date;
+		
+		//defaults
+		title = getDateString();
+		location = "";
+		setStartTime(0, 0);
+		setEndTime(0, 0);
+		tags = new ArrayList<String>();
+		notes = new ArrayList<Note>();
 	}
 	
-	public void setData(String title, String location, Date startDate, Date endDate,
+	public Event(Model model){
+		/*
+		 * when you press "New Event"
+		 */
+		this(model, LocalDate.now());
+	}
+	
+	public Event(Model model, int year, int month, int day) {
+		/*
+		 * Used when you press on a certain day in the calendar instead of "New Event"
+		 */
+		this(model, LocalDate.of(year, month, day));
+	}
+	//end of constructor
+	
+	//set and get variables
+	
+	public void setData(String title, String location, LocalDate date, LocalTime startTime, LocalTime endTime,
 	ArrayList<String> tags, ArrayList<Note> notes){
 		/*
 		 * Used when you press "ok" on the Event frame when you edit it. This will change all variables 
 		 */
 		this.title = title;
 		this.location = location;
-		this.startDate = startDate;
-		this.endDate = endDate;
+		this.date = date;
+		this.startTime = startTime;
+		this.endTime = endTime;
 		this.tags = tags;
 		this.notes = notes;
 		
@@ -80,23 +102,95 @@ public class Event {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
+	
+	//date
+	public LocalDate getDate(){
+		return date;
 	}
 	
+	public int getYear(){
+		return date.getYear();
+	}
+	
+	public int getMonthInt(){
+		return date.getMonth().getValue();
+	}
+	
+	public Month getMonth(){
+		return date.getMonth();
+	}
+	
+	public String getMonthName(){
+		return date.getMonth().name();
+	}
+
+	public int getDay(){
+		return date.getDayOfMonth();
+	}
+	
+	public void setDate(LocalDate date){
+		this.date = date;
+	}
+	
+	public void setDate(int year, int month, int day){
+		setDate(LocalDate.of(year, month, day));
+	}
+	
+	// start time
+	public LocalTime getstartTime() {
+		return startTime;
+	}
+	
+	public int getStartHour(){
+		return startTime.getHour();
+	}
+	
+	public int getStartMin(){
+		return startTime.getMinute();
+	}
+	
+	private String getDateString(){
+		return getMonthName() + " " + Integer.toString(getDay()) + ", " + Integer.toString(getYear());
+	}
+	
+	private String getStartTimeString(){
+		return Integer.toString(getStartHour()) + ":" + Integer.toString(getStartMin());
+	}
+	
+	private String getEndTimeString(){
+		return Integer.toString(getEndHour()) + ":" + Integer.toString(getEndMin());
+	}
+	
+	public void setStartTime(LocalTime startTime) {
+		this.startTime = startTime;
+	}
+	
+	public void setStartTime(int hour, int min) {
+		setStartTime(LocalTime.of(hour, min, 0, 0));
+	}
+
+	// end time
+	public LocalTime getEndTime() {
+		return endTime;
+	}
+	
+	public int getEndHour(){
+		return endTime.getHour();
+	}
+	
+	public int getEndMin(){
+		return endTime.getMinute();
+	}
+
+	public void setEndTime(LocalTime endTime) {
+		this.endTime = endTime;
+	}
+	
+	public void setEndTime(int hour, int min) {
+		setEndTime(LocalTime.of(hour, min, 0, 0));
+	}
+	
+	//tags
 	public void addTag(String tag) {
 		updateEventTagsTable(tag, this);
 		tags.add(tag);
@@ -124,19 +218,6 @@ public class Event {
 		}
 	}
 	
-	public Date getDate(int year, int month, int day, int hrs, int min, int sec){
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(year + 1900, month, day, hrs, min, sec);
-		Date date = calendar.getTime();
-		return date;
-	}
-	
-	public Date getDate(){
-		Calendar calendar = Calendar.getInstance();
-		Date date = calendar.getTime();
-		return date;
-	}
-	
 	private static void updateEventTagsTable(String tag, Event e) {
 		if(eventTagsTable.containsKey(tag.toLowerCase())) {
 			eventTagsTable.get(tag.toLowerCase()).add(e);
@@ -152,44 +233,75 @@ public class Event {
 	}
 	
 	//access the view
-		public EventView getEventFrame(){
-			EventView eventView = new EventView();
-			eventView.setTitle("New Event");
-			
-			//set Controllers
-			ActionListener saveAction = new ActionListener() { 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("saving");
-				}
-			};
-			
-			eventView.save.addActionListener(saveAction);
-			
-			ActionListener toggleAction = new ActionListener() { 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("toggle");
-					eventView.toggleEdit();
-				}
-			};
-			
-			eventView.reset.addActionListener(toggleAction);
-			eventView.edit.addActionListener(toggleAction);
-			
-			ActionListener okAction = new ActionListener() { 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					//exit window
-					System.out.println("ok");
-					eventView.setVisible(false); 
-					eventView.dispose(); 
-				}
-			};
-			
-			eventView.ok.addActionListener(okAction);
-			//end of adding ActionListeners
-			
-			return eventView;
+	public EventView getEventFrame(){
+		EventView eventView = new EventView();
+		eventView.setTitle("New Event");
+		
+		setDefaultValuesFor(eventView);
+		addActionListenersTo(eventView);
+		
+		return eventView;
+	}
+	
+	public void setDefaultValuesFor(EventView eventView){
+		eventView.title.setText(title);
+		eventView.location.setText(location);
+		String date = getDateString();
+		eventView.date.setText(date);
+		String startTime = getStartTimeString();
+		eventView.startTime.setText(startTime);
+		String endTime = getEndTimeString();
+		eventView.endTime.setText(endTime);
+		String tagsString = "";
+		for(int i = 0; i < tags.size(); i++){
+			tagsString += tags.get(i) + ", ";
 		}
+		eventView.tags.setText(tagsString);
+		
+		String notesString = "";
+		for(int i = 0; i < notes.size(); i++){
+			notesString += notes.get(i).getTitle() + ", ";
+		}
+		eventView.notes.setText(notesString);
+		
+		
+	}
+	
+	public void addActionListenersTo(EventView eventView){
+		ActionListener saveAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setTitle(eventView.title.getText());
+				setLocation(eventView.location.getText());
+				System.out.println("saving");
+			}
+		};
+		
+		eventView.save.addActionListener(saveAction);
+		
+		ActionListener toggleAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("toggle");
+				eventView.toggleEdit();
+			}
+		};
+		
+		eventView.reset.addActionListener(toggleAction);
+		eventView.edit.addActionListener(toggleAction);
+		
+		ActionListener okAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//exit window
+				System.out.println("ok");
+				eventView.setVisible(false); 
+				eventView.dispose(); 
+			}
+		};
+		
+		eventView.ok.addActionListener(okAction);
+		//end of adding ActionListeners
+		
+	}
 }

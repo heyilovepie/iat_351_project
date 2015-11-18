@@ -29,5 +29,10 @@ public class EnterPanel extends JPanel{
 		//get the text from the text field
 		return textField.getText();
 	}
+	
+	public void setText(String text){
+		//get the text from the text field
+		textField.setText(text);
+	}
 
 }

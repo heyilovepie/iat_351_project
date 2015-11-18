@@ -2,6 +2,7 @@ package iat351.project_v2.project;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,6 +20,19 @@ public class Model {
 	
 	public EventView newEvent() {  
 		Event event = new Event(this);
+		events.add(event);
+		return event.getEventFrame();
+	}
+	
+	public EventView newEvent(int year, int month, int day) {  
+		LocalDate date = LocalDate.of(year, month, day);
+		Event event = new Event(this, date);
+		events.add(event);
+		return event.getEventFrame();
+	}
+	
+	public EventView newEvent(LocalDate date) {  
+		Event event = new Event(this, date);
 		events.add(event);
 		return event.getEventFrame();
 	}
