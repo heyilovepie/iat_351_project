@@ -30,21 +30,29 @@ public class CalendarView extends ModeView {
 	
 	public CalendarView(UIDelegate uiDelegate, Dimension sidePanelSize) {
 		super((UIDelegateFrame) uiDelegate);
-		
-		// TODO refactor constructor
-		btnNewEvent = createButton("New Event");
-		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
-		sidePanel.setPreferredSize(sidePanelSize);
-		sidePanel.add(btnNewEvent);
-		
-		//action listener for a new Event
+		createSidePanel(sidePanelSize);
+		setupEventListener(uiDelegate);		
+		createTopPanel(uiDelegate);
+		createCalendar();
+	} // Constructor
+	
+	private void setupEventListener(UIDelegate uiDelegate) {
 		btnNewEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				uiDelegate.newEvent();
 			}
-		});		
-		
+		});
+	}
+
+	private void createSidePanel(Dimension sidePanelSize) {
+		btnNewEvent = createButton("New Event");
+		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
+		sidePanel.setPreferredSize(sidePanelSize);
+		sidePanel.add(btnNewEvent);
+	}
+
+	private void createTopPanel(UIDelegate uiDelegate) {
 		JLabel monthLabel = new JLabel("November 2015");
 		
 		btnMonth = createToggleButton("Month");
@@ -56,7 +64,10 @@ public class CalendarView extends ModeView {
 		topPanel.add(btnMonth);
 		topPanel.add(btnAgenda);
 		topPanel.add(btnToday);
-		
+	}
+
+	private void createCalendar() {
+		// Setup gridbag constraints
 		bottomPanel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.BOTH;
@@ -67,24 +78,25 @@ public class CalendarView extends ModeView {
 		c.gridx = 0;
 		c.gridy = 0;
 		
+		// Add day JPanels to a grid
 		int i = 1;
-		boolean currMonth = true;
+		boolean isCurrMonth = true;
 		for (int row = 0; row < 5; row++) {
 			for (int col = 0; col < 7; col++) {
 				// Reset the day to 1 if it reaches 31
 				if (i == 31) {
 					i = 1;
-					currMonth = false;
+					isCurrMonth = false;
 				}
 				
-				bottomPanel.add(createDayPanel(i, currMonth), c);
+				bottomPanel.add(createDayPanel(i, isCurrMonth), c);
 				c.gridx++;
 				i++;
 			}
 			c.gridx = 0;
 			c.gridy++;
 		}
-	} // Constructor
+	} // createCalendar
 	
 	private JToggleButton createToggleButton(String text) {
 		JToggleButton btn = new JToggleButton(text);
@@ -108,11 +120,6 @@ public class CalendarView extends ModeView {
 
 		return btn;
 	} // createToggleButton
-
-	@Override
-	protected JButton createButton(String text) {
-		return new JButton(text);
-	}
 	
 	private JPanel createDayPanel(int day, boolean currMonth) {
 		// Create JPanel
@@ -124,10 +131,15 @@ public class CalendarView extends ModeView {
 		// Create day label
 		JLabel dayLabel = new JLabel(Integer.toString(day));
 		if (!currMonth) {
-			dayLabel.setForeground(new Color(170, 170, 170));
+			dayLabel.setForeground(Color.LIGHT_GRAY);
 		}
 		panel.add(dayLabel);
 		
 		return panel;
+	}
+	
+	@Override
+	protected JButton createButton(String text) {
+		return new JButton(text);
 	}
 } // CalendarView
