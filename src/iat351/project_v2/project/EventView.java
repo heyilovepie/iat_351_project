@@ -23,19 +23,17 @@ import javax.swing.JToggleButton;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class NoteView extends UIDelegateFrame {
+public class EventView extends UIDelegateFrame {
 	/*
-	 * The main JFrame
-	 * Contains all view elements
+	 * The Event JFrame
 	 */
 	
 	// Panels
 	private JPanel mainPanel;
 	private JPanel topPanel;
 	private JPanel bottomPanel;
-	private NotebookView notebookView;
 	
-	public NoteView() {
+	public EventView() {
 		super();
 	} // Constructor
 
@@ -52,10 +50,8 @@ public class NoteView extends UIDelegateFrame {
 		
 		//top
 		topPanel.setBackground(Color.GRAY);
-		topPanel.add(notebookView.getTopPanel());
 		//bottom
 		bottomPanel.setLayout(new BorderLayout());
-		bottomPanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
 		
 		//main (contains top and bottom)
 		mainPanel.setLayout(new BorderLayout());
@@ -76,7 +72,10 @@ public class NoteView extends UIDelegateFrame {
 	}
 	
 	protected void preInit(){
-		notebookView = new NotebookView(this, new Dimension(0, 0));
+		//change window size to different that the default
+		WIDTH = 500;
+		HEIGHT = 200;
+		MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
 	}
 	
 	@Override
@@ -85,10 +84,4 @@ public class NoteView extends UIDelegateFrame {
 		
 	}
 	//end if init
-
-	public void setNotebookText(String note){
-		notebookView.setNote(note);
-		refreshUI();
-	}
-	
 } // UIDelegate

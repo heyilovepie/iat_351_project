@@ -17,8 +17,10 @@ public class Model {
 		return events;
 	}
 	
-	public void addEvent(Event e) {  
-		events.add(e);
+	public EventView newEvent() {  
+		Event event = new Event(this);
+		events.add(event);
+		return event.getEventFrame();
 	}
 	
 	public Date getDate(int year, int month,int day, int hrs,int min,int sec){

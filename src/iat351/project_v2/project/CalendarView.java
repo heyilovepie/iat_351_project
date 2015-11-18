@@ -21,19 +21,22 @@ public class CalendarView extends ModeView {
 	private JButton btnToday;
 	private JToggleButton btnMonth;
 	private JToggleButton btnAgenda;
+	private UIDelegate uiDelegate;
 	
-	public CalendarView(UIDelegateFrame uiDelegateFrame, Dimension sidePanelSize) {
-		super(uiDelegateFrame);
+	public CalendarView(UIDelegate uiDelegate, Dimension sidePanelSize) {
+		super((UIDelegateFrame) uiDelegate);
 		
 		// TODO refactor constructor
 		btnNewEvent = createButton("New Event");
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.setPreferredSize(sidePanelSize);
 		sidePanel.add(btnNewEvent);
+		
+		//action listener for a new Event
 		btnNewEvent.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "test");
+				uiDelegate.newEvent();
 			}
 		});		
 		

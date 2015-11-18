@@ -1,29 +1,44 @@
 package iat351.project_v2.project;
 
 public class Note {
-	private String title;
-	private String note;
+	protected NoteModel noteModel;
 	
 	
 	public Note(String title, String note) {
-		super();
-		this.title = title;
-		this.note = note;
+		this();
+		noteModel.setNote(note);
+		noteModel.setTitle(title);
+	}
+	
+	public Note(){
+		noteModel = new NoteModel();
+	}
+	
+	//access the view
+	public NoteView getNoteFrame(){
+		NoteView noteView = new NoteView();
+		noteView.setTitle("This is a note");
+		String note = noteModel.getNote();
+		if(note != null){
+			noteView.setNotebookText(note);
+		}
+		return noteView;
 	}
 
+	//access the model
 	public String getTitle() {
-		return title;
+		return noteModel.getTitle();
 	}
 	
 	public void setTitle(String title) {
-		this.title = title;
+		noteModel.setTitle(title);
 	}
 	
 	public String getNote() {
-		return note;
+		return noteModel.getNote();
 	}
 	
 	public void setNote(String note) {
-		this.note = note;
+		noteModel.setNote(note);
 	}
 }

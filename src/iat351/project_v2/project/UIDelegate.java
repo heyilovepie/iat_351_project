@@ -159,4 +159,9 @@ public class UIDelegate extends UIDelegateFrame {
 		revalidate();
 		repaint();
 	}
+	
+	public void newEvent(){
+		Event event = new Event(model);
+		model.newEvent();
+	}
 } // UIDelegate

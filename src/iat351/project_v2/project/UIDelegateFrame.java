@@ -30,9 +30,9 @@ abstract public class UIDelegateFrame extends JFrame {
 	 */
 	
 	// Constants
-	private static final int WIDTH = 1000;
-	private static final int HEIGHT = 600;
-	private static final Dimension MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
+	protected static int WIDTH = 1000;
+	protected static int HEIGHT = 600;
+	protected static Dimension MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
 	
 	public UIDelegateFrame() {
 		preInit();

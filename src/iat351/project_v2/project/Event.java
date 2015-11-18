@@ -1,6 +1,7 @@
 package iat351.project_v2.project;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -13,23 +14,45 @@ import java.util.Set;
  */
 
 public class Event {
+	//get the parent that contains the event
+	
+	protected Model model;
 	private String title;
 	private String location;
-	private Date startTime;
-	private Date endTime;
+	
+	private Date startDate;
+	private Date endDate;
+	private Date createDate;
+	
 	private ArrayList<String> tags;
 	private ArrayList<Note> notes;
 	
 	public static Map<String, Set<Event>> eventTagsTable = 
 			new HashMap<String, Set<Event>>();
+	
+	public Event(Model model){
+		this.model = model;
+		createDate = getDate();
+	}
 
-	public Event(String title, String location, Date startTime, Date endTime, 
-				ArrayList<String> tags, ArrayList<Note> notes) {
-		
+	public Event(Model model, Date startDate) {
+		/*
+		 * Used when you press on a certain day in the calendar instead of "New Event"
+		 */
+		this(model);
+		this.startDate = startDate;
+		this.endDate = startDate;
+	}
+	
+	public void setData(String title, String location, Date startDate, Date endDate,
+	ArrayList<String> tags, ArrayList<Note> notes){
+		/*
+		 * Used when you press "ok" on the Event frame when you edit it. This will change all variables 
+		 */
 		this.title = title;
 		this.location = location;
-		this.startTime = startTime;
-		this.endTime = endTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.tags = tags;
 		this.notes = notes;
 		
@@ -38,15 +61,6 @@ public class Event {
 		}
 		
 		updateEventTagsTable(title, this);
-	}
-	
-	public Event(String title, String location, Date startTime, Date endTime) {
-		this(title, location, startTime, endTime, new ArrayList<String>(), new ArrayList<Note>());
-	}
-	
-	public Event(String title, String location, Date startTime, Date endTime,
-			ArrayList<String> tags) {
-		this(title, location, startTime, endTime, tags, new ArrayList<Note>());
 	}
 
 	public String getTitle() {
@@ -65,20 +79,20 @@ public class Event {
 		this.location = location;
 	}
 
-	public Date getStartTime() {
-		return startTime;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setStartTime(Date startTime) {
-		this.startTime = startTime;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getEndTime() {
-		return endTime;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 	
 	public void addTag(String tag) {
@@ -108,6 +122,19 @@ public class Event {
 		}
 	}
 	
+	public Date getDate(int year, int month, int day, int hrs, int min, int sec){
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(year + 1900, month, day, hrs, min, sec);
+		Date date = calendar.getTime();
+		return date;
+	}
+	
+	public Date getDate(){
+		Calendar calendar = Calendar.getInstance();
+		Date date = calendar.getTime();
+		return date;
+	}
+	
 	private static void updateEventTagsTable(String tag, Event e) {
 		if(eventTagsTable.containsKey(tag.toLowerCase())) {
 			eventTagsTable.get(tag.toLowerCase()).add(e);
@@ -121,4 +148,11 @@ public class Event {
 	public static Set<Event> findEventByTag(String tag) {
 		return Event.eventTagsTable.get(tag.toLowerCase());
 	}
+	
+	//access the view
+		public EventView getEventFrame(){
+			EventView eventView = new EventView();
+			eventView.setTitle("New Event");
+			return eventView;
+		}
 }

@@ -65,6 +65,15 @@ public class NotebookView extends ModeView {
 		bottomPanel.add(scrollPane, BorderLayout.CENTER);
 	} // Constructor
 	
+	public NotebookView(UIDelegateFrame uiDelegateFrame, Dimension sidePanelSize, String title, String note) {
+		this(uiDelegateFrame, sidePanelSize);
+		textPane.setText(note);
+	}
+	
+	public void setNote(String note){
+		textPane.setText(note);
+	}
+	
 	private void createMenuItem(JPopupMenu menu, String text) {
 		JMenuItem item = new JMenuItem(text);
 
