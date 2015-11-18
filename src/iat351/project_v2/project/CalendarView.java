@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -67,14 +68,16 @@ public class CalendarView extends ModeView {
 		c.gridy = 0;
 		
 		int i = 1;
+		boolean currMonth = true;
 		for (int row = 0; row < 5; row++) {
 			for (int col = 0; col < 7; col++) {
 				// Reset the day to 1 if it reaches 31
 				if (i == 31) {
 					i = 1;
+					currMonth = false;
 				}
 				
-				bottomPanel.add(reateDayPanel(i), c);
+				bottomPanel.add(createDayPanel(i, currMonth), c);
 				c.gridx++;
 				i++;
 			}
@@ -111,15 +114,18 @@ public class CalendarView extends ModeView {
 		return new JButton(text);
 	}
 	
-	private JPanel reateDayPanel(int day) {
+	private JPanel createDayPanel(int day, boolean currMonth) {
 		// Create JPanel
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-		panel.setBorder(LineBorder.createBlackLineBorder());
+		panel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.LIGHT_GRAY));
 		panel.setBackground(Color.WHITE);
 		
 		// Create day label
 		JLabel dayLabel = new JLabel(Integer.toString(day));
+		if (!currMonth) {
+			dayLabel.setForeground(new Color(170, 170, 170));
+		}
 		panel.add(dayLabel);
 		
 		return panel;
