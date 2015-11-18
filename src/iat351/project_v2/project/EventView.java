@@ -31,9 +31,16 @@ public class EventView extends UIDelegateFrame {
 	
 	// Panels
 	private EnterPanel event, date, startTime, endTime, location, tags;
+	private JPanel addNotePanel, bottomPanel;
+	private JPanel editPanel, viewPanel;
+	
+	public JButton save, reset, addNote, edit, ok;
+	
+	public boolean isEditing;
 	
 	public EventView() {
 		super();
+		isEditing = true;
 	} // Constructor
 
 	// ===================================
@@ -76,6 +83,52 @@ public class EventView extends UIDelegateFrame {
 		add(endTime);
 		add(location);
 		add(tags);
+		
+		addNotePanel = new JPanel();
+		addNotePanel.setLayout(new FlowLayout());
+		addNote = new JButton("Add Note");	
+		addNotePanel.add(addNote);
+		add(addNotePanel);
+		
+		bottomPanel = new JPanel();
+		bottomPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT / 5));
+		
+		reset = new JButton("Reset");
+		save = new JButton("Save");
+		
+		edit = new JButton("Edit");
+		ok = new JButton("Ok");
+		
+		editPanel = new JPanel();
+		editPanel.setLayout(new BorderLayout());
+		editPanel.add(reset, BorderLayout.WEST);
+		editPanel.add(save, BorderLayout.EAST);
+		
+		viewPanel = new JPanel();
+		viewPanel.setLayout(new BorderLayout());
+		viewPanel.add(edit, BorderLayout.WEST);
+		viewPanel.add(ok, BorderLayout.EAST);
+		
+		if(isEditing){
+			bottomPanel.add(editPanel);
+		}else{
+			bottomPanel.add(viewPanel);
+		}
+		add(bottomPanel);
 	}
 	//end if init
+	
+	public void toggleEdit(){
+		// TODO this is not working!!!
+		if(isEditing){
+			System.out.println("is editing right now");
+			isEditing = false;
+			updatePanel(bottomPanel, viewPanel, editPanel);
+		}else{
+			isEditing = true;
+			updatePanel(bottomPanel, editPanel, viewPanel);
+		}
+		
+		refreshUI();
+	}
 } // UIDelegate

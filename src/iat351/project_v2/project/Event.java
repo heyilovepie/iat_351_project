@@ -1,5 +1,7 @@
 package iat351.project_v2.project;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -153,6 +155,41 @@ public class Event {
 		public EventView getEventFrame(){
 			EventView eventView = new EventView();
 			eventView.setTitle("New Event");
+			
+			//set Controllers
+			ActionListener saveAction = new ActionListener() { 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("saving");
+				}
+			};
+			
+			eventView.save.addActionListener(saveAction);
+			
+			ActionListener toggleAction = new ActionListener() { 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.out.println("toggle");
+					eventView.toggleEdit();
+				}
+			};
+			
+			eventView.reset.addActionListener(toggleAction);
+			eventView.edit.addActionListener(toggleAction);
+			
+			ActionListener okAction = new ActionListener() { 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//exit window
+					System.out.println("ok");
+					eventView.setVisible(false); 
+					eventView.dispose(); 
+				}
+			};
+			
+			eventView.ok.addActionListener(okAction);
+			//end of adding ActionListeners
+			
 			return eventView;
 		}
 }
