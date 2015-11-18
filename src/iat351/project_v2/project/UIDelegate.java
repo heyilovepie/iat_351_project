@@ -146,14 +146,6 @@ public class UIDelegate extends UIDelegateFrame {
 		calendarView = new CalendarView(this, SIDE_PANEL_SIZE);
 		notebookView = new NotebookView(this, SIDE_PANEL_SIZE);
 	}
-	
-	private void updatePanel(JPanel panel, JPanel add, JPanel remove) {
-		/*
-		 * add and remove a panel from another panel
-		 */
-		panel.add(add);
-		panel.remove(remove);
-	}
 
 	public void refreshUI() {
 		revalidate();

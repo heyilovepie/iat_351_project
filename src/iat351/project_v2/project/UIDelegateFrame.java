@@ -78,4 +78,12 @@ abstract public class UIDelegateFrame extends JFrame {
 		revalidate();
 		repaint();
 	}
+	
+	public void updatePanel(JPanel panel, JPanel add, JPanel remove) {
+		/*
+		 * add and remove a panel from another panel
+		 */
+		panel.add(add);
+		panel.remove(remove);
+	}
 } 
