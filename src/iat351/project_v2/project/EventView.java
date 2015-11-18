@@ -3,6 +3,7 @@ package iat351.project_v2.project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,9 +30,7 @@ public class EventView extends UIDelegateFrame {
 	 */
 	
 	// Panels
-	private JPanel mainPanel;
-	private JPanel topPanel;
-	private JPanel bottomPanel;
+	private EnterPanel event, date, startTime, endTime, location, tags;
 	
 	public EventView() {
 		super();
@@ -41,47 +40,42 @@ public class EventView extends UIDelegateFrame {
 	// View & Controller
 	// ===================================
 	
-	//init
-	protected void initPanels() {	
-		//init
-		mainPanel = new JPanel();
-		topPanel = new JPanel();
-		bottomPanel = new JPanel();
-		
-		//top
-		topPanel.setBackground(Color.GRAY);
-		//bottom
-		bottomPanel.setLayout(new BorderLayout());
-		
-		//main (contains top and bottom)
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setBackground(Color.GRAY);
-		mainPanel.add(topPanel, BorderLayout.NORTH);
-		mainPanel.add(bottomPanel, BorderLayout.CENTER);
-		
-		//add to frame
-		add(mainPanel, BorderLayout.CENTER);
-	}
-	
-	protected void initWindow() {
-		/*
-		 * make window
-		 */
-		super.initWindow();
-		setTitle("Note");
-	}
-	
 	protected void preInit(){
 		//change window size to different that the default
 		WIDTH = 500;
-		HEIGHT = 200;
-		MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
+		HEIGHT = 300;
+		MIN_WINDOW_SIZE = new Dimension((int) WIDTH, (int) HEIGHT);
 	}
+	
+	protected void initWindow() {
+		//make the window
+		super.initWindow();
+		setTitle("Note");
+		setLayout(new FlowLayout());
+	}
+	
 	
 	@Override
 	protected void initToggleButtons() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	//init
+	protected void initPanels() {
+		event = new EnterPanel("Event: ", 20);
+		date =  new EnterPanel("Date: ", 20);
+		startTime = new EnterPanel("Start Time: ", 20);
+		endTime = new EnterPanel("End Time: ", 20);
+		location = new EnterPanel("Location: ", 20);
+		tags = new EnterPanel("Tags: ", 20);
+		
+		add(event);
+		add(date);
+		add(startTime);
+		add(endTime);
+		add(location);
+		add(tags);
 	}
 	//end if init
 } // UIDelegate

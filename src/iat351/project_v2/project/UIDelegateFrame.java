@@ -58,11 +58,8 @@ abstract public class UIDelegateFrame extends JFrame {
 	// View
 	// ===================================
 	
+	//init
 	abstract protected void preInit();
-	
-	abstract protected void initToggleButtons();
-	
-	abstract protected void initPanels();
 	
 	protected void initWindow() {
 		/*
@@ -70,9 +67,13 @@ abstract public class UIDelegateFrame extends JFrame {
 		 */
 		setMinimumSize(MIN_WINDOW_SIZE);
 		setSize(WIDTH, HEIGHT);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
+	
+	abstract protected void initToggleButtons();
+	
+	abstract protected void initPanels();
+	//end init
 
 	public void refreshUI() {
 		revalidate();

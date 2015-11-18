@@ -53,6 +53,7 @@ public class UIDelegate extends UIDelegateFrame {
 	
 	public UIDelegate() {
 		super();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	} // Constructor
 
 	// ===================================
