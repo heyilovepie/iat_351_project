@@ -1,5 +1,6 @@
 package iat351.project_v2.project;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -10,8 +11,11 @@ import java.awt.event.ItemListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.border.LineBorder;
 
 public class CalendarView extends ModeView {
 	/*
@@ -62,7 +66,7 @@ public class CalendarView extends ModeView {
 		int i = 1;
 		for (int col = 0; col < 7; col++) {
 			for (int row = 0; row < 5; row++) {
-				bottomPanel.add(new JButton("" + i), c);
+				bottomPanel.add(makeBoxPanel(i), c);
 				c.gridx++;
 				i++;
 			}
@@ -97,5 +101,19 @@ public class CalendarView extends ModeView {
 	@Override
 	protected JButton createButton(String text) {
 		return new JButton(text);
+	}
+	
+	private JPanel makeBoxPanel(int day) {
+		// Create JPanel
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		panel.setBorder(LineBorder.createBlackLineBorder());
+		panel.setBackground(Color.WHITE);
+		
+		// Create day label
+		JLabel dayLabel = new JLabel(Integer.toString(day));
+		panel.add(dayLabel);
+		
+		return panel;
 	}
 } // CalendarView
