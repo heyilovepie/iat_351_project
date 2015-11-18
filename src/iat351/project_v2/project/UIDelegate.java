@@ -32,10 +32,9 @@ public class UIDelegate extends UIDelegateFrame {
 	 */
 	
 	// Constants
-	private static final int WIDTH = 1000;
+	private static final int WIDTH = 1200;
 	private static final int HEIGHT = 600;
-	private static final Dimension MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
-	private static final Dimension SIDE_PANEL_SIZE = new Dimension(WIDTH / 5, HEIGHT);
+	private static final Dimension SIDE_PANEL_SIZE = new Dimension(WIDTH / 6, HEIGHT);
 
 	//Model
 	// TODO load from file
