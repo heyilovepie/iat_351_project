@@ -44,11 +44,14 @@ public class CalendarView extends ModeView {
 			}
 		});		
 		
+		JLabel monthLabel = new JLabel("November 2015");
+		
 		btnMonth = createToggleButton("Month");
 		btnAgenda = createToggleButton("Agenda");
 		uiDelegate.updateToggleButtons(btnMonth, btnAgenda);
 		btnToday = createButton("Today");
 		
+		topPanel.add(monthLabel);
 		topPanel.add(btnMonth);
 		topPanel.add(btnAgenda);
 		topPanel.add(btnToday);
@@ -64,9 +67,14 @@ public class CalendarView extends ModeView {
 		c.gridy = 0;
 		
 		int i = 1;
-		for (int col = 0; col < 7; col++) {
-			for (int row = 0; row < 5; row++) {
-				bottomPanel.add(makeBoxPanel(i), c);
+		for (int row = 0; row < 5; row++) {
+			for (int col = 0; col < 7; col++) {
+				// Reset the day to 1 if it reaches 31
+				if (i == 31) {
+					i = 1;
+				}
+				
+				bottomPanel.add(reateDayPanel(i), c);
 				c.gridx++;
 				i++;
 			}
@@ -103,7 +111,7 @@ public class CalendarView extends ModeView {
 		return new JButton(text);
 	}
 	
-	private JPanel makeBoxPanel(int day) {
+	private JPanel reateDayPanel(int day) {
 		// Create JPanel
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
