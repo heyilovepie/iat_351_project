@@ -53,6 +53,7 @@ public class CalendarView extends ModeView {
 	} // Constructor
 	
 	private void addEvents() {
+		events.clear();
 		for (Event e : events) {
 			// Get event title and date
 			String title = e.getTitle();
@@ -71,7 +72,6 @@ public class CalendarView extends ModeView {
 	public void setEvents(ArrayList<Event> events) {
 		this.events = events;
 		addEvents();
-		System.out.println("setEvents");
 	}
 
 	private void setupEventListener() {
