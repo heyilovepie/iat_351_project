@@ -31,6 +31,7 @@ public class CalendarView extends ModeView {
 	 */
 	private static final int MAX_ROWS = 5;
 	private static final int MAX_COLUMNS = 7;
+	private static final String[] dayNames = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
 	
 	private JButton btnNewEvent;
 	private JButton btnToday;
@@ -129,19 +130,35 @@ public class CalendarView extends ModeView {
 	}
 
 	private void createCalendar() {		
-		// Setup gridbag constraints
+		// Setup panel
 		bottomPanel.setLayout(new GridBagLayout());
+		
+		// Setup gridbag constraints
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
-		c.weighty = 1;
+		c.weighty = 0;
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		c.gridx = 0;
 		c.gridy = 0;
+		
+		// Add day names above calendar
+		int i = 0;
+		for (int col = 0; col < MAX_COLUMNS; col++) {
+			JLabel label = new JLabel(dayNames[i]);
+			label.setOpaque(true);
+			label.setBackground(new Color(200, 230, 200));
+			bottomPanel.add(label, c);
+			c.gridx++;
+			i++;
+		}
 
 		// Add day JPanels to calendar grid
+		c.gridx = 0;
+		c.gridy = 1;
+		c.weighty = 1;
 		createDayPanels();
-		int i = 0;
+		i = 0;
 		for (int row = 0; row < MAX_ROWS; row++) {
 			for (int col = 0; col < MAX_COLUMNS; col++) {
 				bottomPanel.add(days.get(i), c);
