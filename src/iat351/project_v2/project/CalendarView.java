@@ -98,12 +98,15 @@ public class CalendarView extends ModeView {
 
 	private void createTopPanel() {
 		JLabel monthLabel = new JLabel("November 2015");
+		monthLabel.setFont(monthLabel.getFont().deriveFont(20.0f));
+		monthLabel.setForeground(Color.WHITE);
 
 		btnMonth = createToggleButton("Month");
 		btnAgenda = createToggleButton("Agenda");
 		uiDelegate.updateToggleButtons(btnMonth, btnAgenda);
 		btnToday = createButton("Today");
 
+		topPanel.setBackground(Color.GRAY);
 		topPanel.add(monthLabel);
 		topPanel.add(btnMonth);
 		topPanel.add(btnAgenda);
