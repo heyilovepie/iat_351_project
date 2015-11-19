@@ -1,6 +1,7 @@
 package iat351.project_v2.project;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
@@ -55,6 +56,7 @@ public class NotebookView extends ModeView {
 		}
 		fontSizeDropdown.setSelectedItem(new Float(14));
 
+		topPanel.setBackground(Color.GRAY);
 		topPanel.add(fontsDropdown);
 		topPanel.add(fontSizeDropdown);
 		topPanel.add(new JButton("B"));

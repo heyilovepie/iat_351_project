@@ -132,6 +132,8 @@ public class CalendarView extends ModeView {
 	private void createCalendar() {		
 		// Setup panel
 		bottomPanel.setLayout(new GridBagLayout());
+		bottomPanel.setBackground(Color.GRAY);
+		bottomPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		
 		// Setup gridbag constraints
 		c.fill = GridBagConstraints.BOTH;
