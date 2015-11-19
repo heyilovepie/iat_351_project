@@ -294,9 +294,9 @@ public class Event {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//exit window
-				System.out.println("ok");
+				System.out.println("ok pressed; num of events = " + model.getEvents().size());
 				eventView.setVisible(false); 
-				eventView.dispose(); 
+				eventView.dispose();
 			}
 		};
 		

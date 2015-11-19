@@ -3,7 +3,7 @@ package iat351.project_v2.test.enter_panel;
 
 import java.awt.FlowLayout;
 
-import iat351.project_v2.project.EnterPanel;
+import iat351.project_v2.project.InputField;
 import iat351.project_v2.project.Note;
 
 import javax.swing.JFrame;
@@ -21,9 +21,9 @@ public class Main {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 				frame.setLayout(new FlowLayout());
-				frame.add(new EnterPanel("Event: ", 20));
-				frame.add(new EnterPanel("Time: ", 20));
-				frame.add(new EnterPanel("Location: ", 20));
+				frame.add(new InputField("Event: ", 20));
+				frame.add(new InputField("Time: ", 20));
+				frame.add(new InputField("Location: ", 20));
 			}
 		});
 	} // main

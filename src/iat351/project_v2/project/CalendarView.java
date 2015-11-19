@@ -40,18 +40,39 @@ public class CalendarView extends ModeView {
 
 	private GridBagConstraints c = new GridBagConstraints();
 	private ArrayList<JPanel> days = new ArrayList<JPanel>(); // Used for adding events
+	private ArrayList<Event> events = new ArrayList<Event>();
 
 	public CalendarView(UIDelegate uiDelegate, Dimension sidePanelSize) {
 		super((UIDelegateFrame) uiDelegate);
 		this.uiDelegate = uiDelegate;
 
 		createSidePanel(sidePanelSize);
-		setupEventListener();
 		createTopPanel();
 		createCalendar();
-
-		// addEventToCalendar();
+		setupEventListener();
 	} // Constructor
+	
+	private void addEvents() {
+		for (Event e : events) {
+			// Get event title and date
+			String title = e.getTitle();
+			int day = e.getDay(); // TODO will need to change this to e.getDate() for other months/years
+			
+			// Create event label
+			JLabel eventLabel = new JLabel(title);
+			eventLabel.setOpaque(true);
+			eventLabel.setBackground(Color.CYAN);
+			
+			// Add event label to calendar
+			days.get(day).add(eventLabel);
+		}
+	}
+	
+	public void setEvents(ArrayList<Event> events) {
+		this.events = events;
+		addEvents();
+		System.out.println("setEvents");
+	}
 
 	private void setupEventListener() {
 		btnNewEvent.addActionListener(new ActionListener() {
@@ -72,8 +93,7 @@ public class CalendarView extends ModeView {
 		sidePanel.setPreferredSize(sidePanelSize);
 		sidePanel.add(btnNewEvent);
 		sidePanel.add(tagsLabel);
-		// sidePanel.add(separator); // separator hides the components under it
-		// for some reason
+		// sidePanel.add(separator); // separator hides the components under it for some reason
 		sidePanel.add(placeholderCheckBox);
 	}
 

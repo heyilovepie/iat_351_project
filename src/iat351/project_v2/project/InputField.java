@@ -7,11 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class EnterPanel extends JPanel{
+public class InputField extends JPanel{
 	JLabel label;
 	JTextField textField;
 	
-	public EnterPanel(String name, int text_width){
+	public InputField(String name, int text_width){
 		
 		setLayout(new FlowLayout());
 		setBackground(Color.WHITE);

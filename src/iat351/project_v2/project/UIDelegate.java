@@ -156,6 +156,8 @@ public class UIDelegate extends UIDelegateFrame {
 	
 	public void newEvent(){
 		model.newEvent();
+		calendarView.setEvents(model.getEvents());
+		refreshUI();
 	}
 	
 	public void newEvent(int year, int month, int day){
