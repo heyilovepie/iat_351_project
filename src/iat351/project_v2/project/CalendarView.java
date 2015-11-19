@@ -40,7 +40,6 @@ public class CalendarView extends ModeView {
 
 	private GridBagConstraints c = new GridBagConstraints();
 	private ArrayList<JPanel> days = new ArrayList<JPanel>(); // Used for adding events
-	private ArrayList<Event> events = new ArrayList<Event>();
 
 	public CalendarView(UIDelegate uiDelegate, Dimension sidePanelSize) {
 		super((UIDelegateFrame) uiDelegate);
@@ -52,16 +51,27 @@ public class CalendarView extends ModeView {
 		setupEventListener();
 	} // Constructor
 	
-	private void addEvents() {
-		for (Event e : events) {
+	private void addEvents(ArrayList<Event> events) {
+		for (Event event : events) {
 			// Get event title and date
-			String title = e.getTitle();
-			int day = e.getDay(); // TODO will need to change this to e.getDate() for other months/years
+			String title = event.getTitle();
+			int day = event.getDay(); // TODO will need to change this to e.getDate() for other months/years
 			
 			// Create event label
-			JLabel eventLabel = new JLabel(title);
+			JButton eventLabel = new JButton(title);
 			eventLabel.setOpaque(true);
 			eventLabel.setBackground(Color.CYAN);
+			
+			//add action listener
+			ActionListener eventAction = new ActionListener() { 
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					//open the event window
+					uiDelegate.openEvent(event); 
+				}
+			};
+			
+			eventLabel.addActionListener(eventAction);
 			
 			// Add event label to calendar
 			days.get(day - 1).add(eventLabel);
@@ -69,11 +79,15 @@ public class CalendarView extends ModeView {
 	}
 	
 	public void setEvents(ArrayList<Event> events) {
-		this.events = events;
-		bottomPanel.removeAll();
-		days.clear();
-		createCalendar();
-		addEvents();
+		// TODO this is not working???
+		System.out.println("Num of events = " + events.size());
+		//reset
+		bottomPanel.removeAll(); //clear the bottomPanel
+		days.clear(); //clear the list of JPanel days
+		//create new
+		createCalendar(); //create a new calendar with days added
+		//add events
+		addEvents(events);
 	}
 
 	private void setupEventListener() {

@@ -31,6 +31,8 @@ public class Event {
 	private ArrayList<String> tags;
 	private ArrayList<Note> notes;
 	
+	private boolean newEvent;
+	
 	public static Map<String, Set<Event>> eventTagsTable = 
 			new HashMap<String, Set<Event>>();
 
@@ -48,6 +50,7 @@ public class Event {
 		setEndTime(0, 0);
 		tags = new ArrayList<String>();
 		notes = new ArrayList<Note>();
+		newEvent = true;
 	}
 	
 	public Event(Model model){
@@ -274,8 +277,13 @@ public class Event {
 		ActionListener saveAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//update the info in here from the user inputs
+				eventView.toggleEdit();
+				//set model values
 				setTitle(eventView.title.getText());
 				setLocation(eventView.location.getText());
+				
+				uiDelegate.resetCalendarItems();
 				System.out.println("saving");
 			}
 		};
@@ -285,6 +293,7 @@ public class Event {
 		ActionListener editAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//edit view
 				System.out.println("toggle");
 				eventView.toggleEdit();
 			}
@@ -295,6 +304,7 @@ public class Event {
 		ActionListener resetAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//change to view mode and reset values
 				eventView.toggleEdit();
 				setDefaultValuesFor(eventView);
 			}
@@ -307,7 +317,6 @@ public class Event {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//exit window
-				System.out.println("ok pressed; num of events = " + model.getEvents().size());
 				eventView.setVisible(false); 
 				eventView.dispose();
 			}
