@@ -163,11 +163,19 @@ public class UIDelegate extends UIDelegateFrame {
 	}
 	
 	public void newEvent(int year, int month, int day){
-		model.newEvent(year, month, day);
+		Event event = model.newEvent(year, month, day);
+		event.getEventFrame(this);
+		
+		calendarView.setEvents(model.getEvents());
+		refreshUI();
 	}
 	
 	public void newEvent(LocalDate date){
-		model.newEvent(date);
+		Event event = model.newEvent(date);
+		event.getEventFrame(this);
+		
+		calendarView.setEvents(model.getEvents());
+		refreshUI();
 	}
 	
 	public Model getModel(){
@@ -176,7 +184,6 @@ public class UIDelegate extends UIDelegateFrame {
 	
 	public void makeNote(Note note, Event event){
 		/* makes a new note */
-		System.out.println("making event frame in ui");
 		NoteView noteView = note.getNoteFrame();
 		noteView.setTitle(event.getTitle());
 	}

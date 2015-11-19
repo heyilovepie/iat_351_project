@@ -160,7 +160,7 @@ public class CalendarView extends ModeView {
 		panel.setBackground(Color.WHITE);
 		panel.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				System.out.println(day + " pressed");
+				uiDelegate.newEvent(2015, 11, day);
 			}
 		});
 

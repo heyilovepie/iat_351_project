@@ -269,6 +269,8 @@ public class Event {
 	}
 	
 	public void addActionListenersTo(UIDelegate uiDelegate, EventView eventView){
+		/*add all action listeners to eventView that is a child of the JFrame uiDelegate */
+		
 		ActionListener saveAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -329,7 +331,8 @@ public class Event {
 	}
 	
 	public void makeNote(UIDelegate uiDelegate){
-		System.out.println("add note");
+		/*Makes a note that is a child of the uiDelegate*/
+		/* note: this is here because otherwise a call to 'this' will get the actionlistener */
 		Note note = new Note();
 		notes.add(note);
 		uiDelegate.makeNote(note, this);

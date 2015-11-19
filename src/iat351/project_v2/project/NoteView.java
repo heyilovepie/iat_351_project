@@ -38,6 +38,11 @@ public class NoteView extends UIDelegateFrame {
 	public NoteView() {
 		super();
 	} // Constructor
+	
+	public NoteView(String name){
+		this();
+		setWindowTitle("Name");
+	}
 
 	// ===================================
 	// View & Controller
@@ -72,7 +77,7 @@ public class NoteView extends UIDelegateFrame {
 		 * make window
 		 */
 		super.initWindow();
-		setTitle("Note");
+		setWindowTitle("Note");
 	}
 	
 	protected void preInit(){
@@ -91,4 +96,7 @@ public class NoteView extends UIDelegateFrame {
 		refreshUI();
 	}
 	
-} // UIDelegate
+	public void setWindowTitle(String title){
+		setTitle(title);
+	}
+}
