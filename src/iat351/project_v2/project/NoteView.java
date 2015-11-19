@@ -83,6 +83,13 @@ public class NoteView extends UIDelegateFrame {
 	protected void preInit(){
 		notebookView = new NotebookView(this, new Dimension(0, 0));
 	}
+	
+	@Override
+	protected void initToggleButtons() {
+		// TODO Auto-generated method stub
+		
+	}
+	//end if init
 
 	public void setNotebookText(String note){
 		notebookView.setNote(note);

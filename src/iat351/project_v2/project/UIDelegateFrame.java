@@ -20,6 +20,7 @@ abstract public class UIDelegateFrame extends JFrame {
 	public UIDelegateFrame() {
 		preInit();
 		initWindow();
+		initToggleButtons();
 		initPanels();
 	} // Constructor
 
@@ -51,7 +52,9 @@ abstract public class UIDelegateFrame extends JFrame {
 		setSize(WIDTH, HEIGHT);
 		setVisible(true);
 	}
-		
+	
+	abstract protected void initToggleButtons();
+	
 	abstract protected void initPanels();
 	//end init
 

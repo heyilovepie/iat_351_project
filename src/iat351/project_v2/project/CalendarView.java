@@ -39,7 +39,7 @@ public class CalendarView extends ModeView {
 	private UIDelegate uiDelegate;
 
 	private GridBagConstraints c = new GridBagConstraints();
-	private ArrayList<JPanel> days = new ArrayList<JPanel>();
+	private ArrayList<JPanel> days = new ArrayList<JPanel>(); // Used for adding events
 	private ArrayList<Event> events = new ArrayList<Event>();
 
 	public CalendarView(UIDelegate uiDelegate, Dimension sidePanelSize) {
