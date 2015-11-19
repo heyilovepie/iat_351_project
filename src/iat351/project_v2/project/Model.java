@@ -14,27 +14,31 @@ public class Model {
 	public Model() {
 	}
 	
+	public void addActionListeners(UIDelegate ui){
+		
+	}
+	
 	public ArrayList<Event> getEvents() {
 		return events;
 	}
 	
-	public EventView newEvent() {  
+	public Event newEvent() {  
 		Event event = new Event(this);
 		events.add(event);
-		return event.getEventFrame();
+		return event;
 	}
 	
-	public EventView newEvent(int year, int month, int day) {  
+	public Event newEvent(int year, int month, int day) {  
 		LocalDate date = LocalDate.of(year, month, day);
 		Event event = new Event(this, date);
 		events.add(event);
-		return event.getEventFrame();
+		return event;
 	}
 	
-	public EventView newEvent(LocalDate date) {  
+	public Event newEvent(LocalDate date) {  
 		Event event = new Event(this, date);
 		events.add(event);
-		return event.getEventFrame();
+		return event;
 	}
 	
 	public Date getDate(int year, int month,int day, int hrs,int min,int sec){

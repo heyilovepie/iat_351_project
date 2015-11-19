@@ -30,8 +30,8 @@ public class EventView extends UIDelegateFrame {
 	 */
 	
 	// Panels
-	public InputField title, location, date, startTime, endTime, tags;
-	public InputField notes = new InputField("Notes", 10); // TODO temp var add buttons 
+	public EnterPanel title, location, date, startTime, endTime, tags;
+	public EnterPanel notes = new EnterPanel("Notes", 10); // TODO temp var add buttons 
 	
 	private JPanel addNotePanel, bottomPanel;
 	private JPanel editPanel, viewPanel;
@@ -72,20 +72,20 @@ public class EventView extends UIDelegateFrame {
 	
 	//init
 	protected void initPanels() {
-		title = new InputField("Event: ", 20);
-		date =  new InputField("Date: ", 20);
+		title = new EnterPanel("Event: ", 20);
+		date =  new EnterPanel("Date: ", 20);
 		
 		JPanel timePanel = new JPanel();
 		timePanel.setLayout(new FlowLayout());
 		timePanel.setPreferredSize(new Dimension(WIDTH,  HEIGHT / 6));
-		startTime = new InputField("Start Time: ", 5);
-		endTime = new InputField("End Time: ", 5);
+		startTime = new EnterPanel("Start Time: ", 5);
+		endTime = new EnterPanel("End Time: ", 5);
 		timePanel.add(startTime);
 		timePanel.add(endTime);
 		add(timePanel);
 		
-		location = new InputField("Location: ", 20);
-		tags = new InputField("Tags: ", 20);
+		location = new EnterPanel("Location: ", 20);
+		tags = new EnterPanel("Tags: ", 20);
 		
 		add(title);
 		add(date);

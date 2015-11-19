@@ -233,12 +233,13 @@ public class Event {
 	}
 	
 	//access the view
-	public EventView getEventFrame(){
+	public EventView getEventFrame(UIDelegate uiDelegate){
+		System.out.println("making event frame in event");
 		EventView eventView = new EventView();
 		eventView.setTitle("New Event");
 		
 		setDefaultValuesFor(eventView);
-		addActionListenersTo(eventView);
+		addActionListenersTo(uiDelegate, eventView);
 		
 		return eventView;
 	}
@@ -264,10 +265,10 @@ public class Event {
 		}
 		eventView.notes.setText(notesString);
 		
-		
+		eventView.refreshUI();
 	}
 	
-	public void addActionListenersTo(EventView eventView){
+	public void addActionListenersTo(UIDelegate uiDelegate, EventView eventView){
 		ActionListener saveAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -279,7 +280,7 @@ public class Event {
 		
 		eventView.save.addActionListener(saveAction);
 		
-		ActionListener toggleAction = new ActionListener() { 
+		ActionListener editAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("toggle");
@@ -287,8 +288,18 @@ public class Event {
 			}
 		};
 		
-		eventView.reset.addActionListener(toggleAction);
-		eventView.edit.addActionListener(toggleAction);
+		eventView.edit.addActionListener(editAction);
+		
+		ActionListener resetAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				eventView.toggleEdit();
+				setDefaultValuesFor(eventView);
+			}
+		};
+		
+		eventView.reset.addActionListener(resetAction);
+		
 		
 		ActionListener okAction = new ActionListener() { 
 			@Override
@@ -301,7 +312,26 @@ public class Event {
 		};
 		
 		eventView.ok.addActionListener(okAction);
+		
+		ActionListener addNoteAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//add Note
+				makeNote(uiDelegate);
+			}
+		};
+		
+		eventView.addNote.addActionListener(addNoteAction);
+		
+		
 		//end of adding ActionListeners
 		
+	}
+	
+	public void makeNote(UIDelegate uiDelegate){
+		System.out.println("add note");
+		Note note = new Note();
+		notes.add(note);
+		uiDelegate.makeNote(note, this);
 	}
 }
