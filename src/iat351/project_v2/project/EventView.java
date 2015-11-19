@@ -63,13 +63,6 @@ public class EventView extends UIDelegateFrame {
 		setLayout(new FlowLayout());
 	}
 	
-	
-	@Override
-	protected void initToggleButtons() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	//init
 	protected void initPanels() {
 		title = new EnterPanel("Event: ", 20);
