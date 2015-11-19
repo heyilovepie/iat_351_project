@@ -64,7 +64,7 @@ public class CalendarView extends ModeView {
 			eventLabel.setBackground(Color.CYAN);
 			
 			// Add event label to calendar
-			days.get(day).add(eventLabel);
+			days.get(day + 1).add(eventLabel);
 		}
 	}
 	
