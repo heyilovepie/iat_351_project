@@ -182,7 +182,7 @@ public class UIDelegate extends UIDelegateFrame {
 		return model;
 	}
 	
-	public void makeNote(Note note, Event event){
+	public void newNote(Note note, Event event){
 		/* makes a new note */
 		NoteView noteView = note.getNoteFrame();
 		noteView.setTitle(event.getTitle());

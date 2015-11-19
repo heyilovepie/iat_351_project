@@ -33,7 +33,8 @@ public class EventView extends UIDelegateFrame {
 	public EnterPanel title, location, date, startTime, endTime, tags;
 	public EnterPanel notes = new EnterPanel("Notes", 10); // TODO temp var add buttons 
 	
-	private JPanel addNotePanel, bottomPanel;
+	private JPanel addNotePanel;
+	private BottomSavePanel bottomSavePanel;
 	private JPanel editPanel, viewPanel;
 	
 	public JButton save, reset, addNote, edit, ok;
@@ -70,9 +71,7 @@ public class EventView extends UIDelegateFrame {
 	
 	
 	@Override
-	protected void initToggleButtons() {
-		// TODO Auto-generated method stub
-		
+	protected void initToggleButtons() {		
 	}
 	
 	//init
@@ -106,31 +105,10 @@ public class EventView extends UIDelegateFrame {
 		addNotePanel.add(addNote);
 		add(addNotePanel);
 		
-		bottomPanel = new JPanel();
-		bottomPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT / 5));
-		
-		reset = new JButton("Reset");
-		save = new JButton("Save");
-		
-		edit = new JButton("Edit");
-		ok = new JButton("Ok");
-		
-		editPanel = new JPanel();
-		editPanel.setLayout(new BorderLayout());
-		editPanel.add(reset, BorderLayout.WEST);
-		editPanel.add(save, BorderLayout.EAST);
-		
-		viewPanel = new JPanel();
-		viewPanel.setLayout(new BorderLayout());
-		viewPanel.add(edit, BorderLayout.WEST);
-		viewPanel.add(ok, BorderLayout.EAST);
-		
-		if(isEditing){
-			bottomPanel.add(editPanel);
-		}else{
-			bottomPanel.add(viewPanel);
-		}
-		add(bottomPanel);
+		bottomSavePanel = new BottomSavePanel(isEditing);
+		//bottomSavePanel.add(new JButton("mew"));
+		bottomSavePanel.setPreferredSize(new Dimension(WIDTH, HEIGHT / 5));
+		add(bottomSavePanel);
 	}
 	//end if init
 	
@@ -138,15 +116,8 @@ public class EventView extends UIDelegateFrame {
 	
 	
 	public void toggleEdit(){
-		// TODO this is not working!!!
-		if(isEditing){
-			isEditing = false;
-			updatePanel(bottomPanel, viewPanel, editPanel);
-		}else{
-			isEditing = true;
-			updatePanel(bottomPanel, editPanel, viewPanel);
-		}
-		
+		isEditing = !isEditing;		
+		bottomSavePanel.toggleEdit();
 		toggleEnterPanels();
 		refreshUI();
 	}
@@ -158,5 +129,12 @@ public class EventView extends UIDelegateFrame {
 		startTime.toggleEditable();
 		endTime.toggleEditable();
 		tags.toggleEditable();
+	}
+	
+	public void addActionListeners(ActionListener saveL, ActionListener resetL, 
+			ActionListener deleteL, ActionListener editL, ActionListener okL){
+		
+		bottomSavePanel.addActionListeners(saveL, resetL, deleteL, editL, okL);	
+		
 	}
 } // UIDelegate

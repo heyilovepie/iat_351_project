@@ -30,13 +30,25 @@ public class NoteView extends UIDelegateFrame {
 	 */
 	
 	// Panels
-	private JPanel mainPanel;
+	public EnterPanel title;
+	
 	private JPanel topPanel;
-	private JPanel bottomPanel;
+	private JPanel middlePanel;
+	private BottomSavePanel bottomSavePanel;
+	
 	private NotebookView notebookView;
+	private boolean isEditing;
 	
 	public NoteView() {
 		super();
+		this.isEditing = true;
+		super.constructor(); //call super constructor
+	} // Constructor
+	
+	public NoteView(boolean isEditing) {
+		super();
+		this.isEditing = isEditing; //set editing variable
+		super.constructor(); //call super constructor
 	} // Constructor
 	
 	public NoteView(String name){
@@ -44,6 +56,15 @@ public class NoteView extends UIDelegateFrame {
 		setWindowTitle("Name");
 	}
 
+	public NoteView(String name, boolean isEditing){
+		this(isEditing);
+		setWindowTitle("Name");
+	}
+	
+	protected void constructor(){
+		/*this is intentionally empty to override the parent class */
+	}
+	
 	// ===================================
 	// View & Controller
 	// ===================================
@@ -51,25 +72,27 @@ public class NoteView extends UIDelegateFrame {
 	//init
 	protected void initPanels() {	
 		//init
-		mainPanel = new JPanel();
+		title = new EnterPanel("Title", 20, true);
+		
 		topPanel = new JPanel();
-		bottomPanel = new JPanel();
+		middlePanel = new JPanel();
+		bottomSavePanel = new BottomSavePanel(true);
 		
 		//top
 		topPanel.setBackground(Color.GRAY);
 		topPanel.add(notebookView.getTopPanel());
 		//bottom
-		bottomPanel.setLayout(new BorderLayout());
-		bottomPanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
+		middlePanel.setLayout(new BorderLayout());
+		middlePanel.add(notebookView.getBottomPanel(), BorderLayout.CENTER);
+		
+		
 		
 		//main (contains top and bottom)
-		mainPanel.setLayout(new BorderLayout());
-		mainPanel.setBackground(Color.GRAY);
-		mainPanel.add(topPanel, BorderLayout.NORTH);
-		mainPanel.add(bottomPanel, BorderLayout.CENTER);
-		
-		//add to frame
-		add(mainPanel, BorderLayout.CENTER);
+		setLayout(new BorderLayout());
+		setBackground(Color.GRAY);
+		add(topPanel, BorderLayout.NORTH);
+		add(middlePanel, BorderLayout.CENTER);
+		add(bottomSavePanel, BorderLayout.SOUTH);
 	}
 	
 	protected void initWindow() {
@@ -98,5 +121,32 @@ public class NoteView extends UIDelegateFrame {
 	
 	public void setWindowTitle(String title){
 		setTitle(title);
+	}
+	
+	public void toggleEdit(){
+		isEditing = !isEditing;		
+		bottomSavePanel.toggleEdit();
+		toggleEnterPanels();
+		refreshUI();
+	}
+	
+	protected void toggleEnterPanels(){
+		title.toggleEditable();
+
+	}
+	
+	public void addActionListeners(ActionListener saveL, ActionListener resetL, 
+			ActionListener deleteL, ActionListener editL, ActionListener okL){
+		
+		bottomSavePanel.addActionListeners(saveL, resetL, deleteL, editL, okL);	
+		
+	}
+	
+	public void setNote(String note){
+		notebookView.setNote(note);
+	}
+	
+	public String getNote(){
+		return notebookView.getNote();
 	}
 }

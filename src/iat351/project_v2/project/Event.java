@@ -237,15 +237,15 @@ public class Event {
 	
 	//access the view
 	public EventView getEventFrame(UIDelegate uiDelegate){
+		//returns the event view to uiDelegate
 		EventView eventView = new EventView(newEvent);
 		eventView.setTitle("New Event");
 		
 		setDefaultValuesFor(eventView);
 		addActionListenersTo(uiDelegate, eventView);
 		
-		System.out.println("making not new event");
-		newEvent = false; //you are no longer editing this Event for the first time
-		
+		//you are no longer editing this Event for the first time
+		newEvent = false; 
 		return eventView;
 	}
 	
@@ -276,6 +276,7 @@ public class Event {
 	public void addActionListenersTo(UIDelegate uiDelegate, EventView eventView){
 		/*add all action listeners to eventView that is a child of the JFrame uiDelegate */
 		
+		//make action listeners
 		ActionListener saveAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -289,8 +290,6 @@ public class Event {
 			}
 		};
 		
-		eventView.save.addActionListener(saveAction);
-		
 		ActionListener editAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -298,8 +297,6 @@ public class Event {
 				eventView.toggleEdit();
 			}
 		};
-		
-		eventView.edit.addActionListener(editAction);
 		
 		ActionListener resetAction = new ActionListener() { 
 			@Override
@@ -310,9 +307,6 @@ public class Event {
 			}
 		};
 		
-		eventView.reset.addActionListener(resetAction);
-		
-		
 		ActionListener okAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -321,8 +315,6 @@ public class Event {
 				eventView.dispose();
 			}
 		};
-		
-		eventView.ok.addActionListener(okAction);
 		
 		ActionListener addNoteAction = new ActionListener() { 
 			@Override
@@ -333,8 +325,7 @@ public class Event {
 		};
 		
 		eventView.addNote.addActionListener(addNoteAction);
-		
-		
+		eventView.addActionListeners(saveAction, resetAction, okAction, editAction, okAction);
 		//end of adding ActionListeners
 		
 	}
@@ -344,6 +335,6 @@ public class Event {
 		/* note: this is here because otherwise a call to 'this' will get the actionlistener */
 		Note note = new Note();
 		notes.add(note);
-		uiDelegate.makeNote(note, this);
+		uiDelegate.newNote(note, this);
 	}
 }

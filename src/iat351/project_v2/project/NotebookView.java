@@ -72,10 +72,6 @@ public class NotebookView extends ModeView {
 		textPane.setText(note);
 	}
 	
-	public void setNote(String note){
-		textPane.setText(note);
-	}
-	
 	private void createMenuItem(JPopupMenu menu, String text) {
 		JMenuItem item = new JMenuItem(text);
 
@@ -124,4 +120,12 @@ public class NotebookView extends ModeView {
 
 		return btn;
 	} // createButton
+	
+	public String getNote(){
+		return textPane.getText();
+	}
+	
+	public void setNote(String note){
+		textPane.setText(note);
+	}
 } // NotebookView
