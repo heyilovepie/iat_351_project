@@ -79,8 +79,6 @@ public class CalendarView extends ModeView {
 	}
 	
 	public void setEvents(ArrayList<Event> events) {
-		// TODO this is not working???
-		System.out.println("Num of events = " + events.size());
 		//reset
 		bottomPanel.removeAll(); //clear the bottomPanel
 		days.clear(); //clear the list of JPanel days

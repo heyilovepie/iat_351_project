@@ -40,14 +40,19 @@ public class EventView extends UIDelegateFrame {
 	
 	public boolean isEditing;
 	
-	public EventView() {
+	public EventView(boolean isEditing) {
 		super();
-		isEditing = true;
+		this.isEditing = isEditing; //set editing variable
+		super.constructor(); //call super constructor
 	} // Constructor
 
 	// ===================================
 	// View & Controller
 	// ===================================
+	
+	protected void constructor(){
+		/*this is intentionally empty to override the parent class */
+	}
 	
 	protected void preInit(){
 		//change window size to different that the default
@@ -72,20 +77,20 @@ public class EventView extends UIDelegateFrame {
 	
 	//init
 	protected void initPanels() {
-		title = new EnterPanel("Event: ", 20);
-		date =  new EnterPanel("Date: ", 20);
+		title = new EnterPanel("Event: ", 20, isEditing);
+		date =  new EnterPanel("Date: ", 20, isEditing);
 		
 		JPanel timePanel = new JPanel();
 		timePanel.setLayout(new FlowLayout());
 		timePanel.setPreferredSize(new Dimension(WIDTH,  HEIGHT / 6));
-		startTime = new EnterPanel("Start Time: ", 5);
-		endTime = new EnterPanel("End Time: ", 5);
+		startTime = new EnterPanel("Start Time: ", 5, isEditing);
+		endTime = new EnterPanel("End Time: ", 5, isEditing);
 		timePanel.add(startTime);
 		timePanel.add(endTime);
 		add(timePanel);
 		
-		location = new EnterPanel("Location: ", 20);
-		tags = new EnterPanel("Tags: ", 20);
+		location = new EnterPanel("Location: ", 20, isEditing);
+		tags = new EnterPanel("Tags: ", 20, isEditing);
 		
 		add(title);
 		add(date);
@@ -135,7 +140,6 @@ public class EventView extends UIDelegateFrame {
 	public void toggleEdit(){
 		// TODO this is not working!!!
 		if(isEditing){
-			System.out.println("is editing right now");
 			isEditing = false;
 			updatePanel(bottomPanel, viewPanel, editPanel);
 		}else{
@@ -143,6 +147,16 @@ public class EventView extends UIDelegateFrame {
 			updatePanel(bottomPanel, editPanel, viewPanel);
 		}
 		
+		toggleEnterPanels();
 		refreshUI();
+	}
+	
+	protected void toggleEnterPanels(){
+		title.toggleEditable();
+		location.toggleEditable();
+		date.toggleEditable();
+		startTime.toggleEditable();
+		endTime.toggleEditable();
+		tags.toggleEditable();
 	}
 } // UIDelegate

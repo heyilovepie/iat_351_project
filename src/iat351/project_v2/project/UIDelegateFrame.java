@@ -18,10 +18,7 @@ abstract public class UIDelegateFrame extends JFrame {
 	protected static Dimension MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
 	
 	public UIDelegateFrame() {
-		preInit();
-		initWindow();
-		initToggleButtons();
-		initPanels();
+		constructor();
 	} // Constructor
 
 	// ===================================
@@ -35,6 +32,14 @@ abstract public class UIDelegateFrame extends JFrame {
 		selectedBtn.setEnabled(false);
 		unselectedBtn.setEnabled(true);
 		unselectedBtn.setSelected(false);
+	}
+	
+	protected void constructor(){
+		/*this is here so that you can override it to add stuff before in sub-class :) */
+		preInit();
+		initWindow();
+		initToggleButtons();
+		initPanels();
 	}
 
 	// ===================================

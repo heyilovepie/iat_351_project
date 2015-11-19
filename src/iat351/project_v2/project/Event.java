@@ -237,12 +237,14 @@ public class Event {
 	
 	//access the view
 	public EventView getEventFrame(UIDelegate uiDelegate){
-		System.out.println("making event frame in event");
-		EventView eventView = new EventView();
+		EventView eventView = new EventView(newEvent);
 		eventView.setTitle("New Event");
 		
 		setDefaultValuesFor(eventView);
 		addActionListenersTo(uiDelegate, eventView);
+		
+		System.out.println("making not new event");
+		newEvent = false; //you are no longer editing this Event for the first time
 		
 		return eventView;
 	}
@@ -284,7 +286,6 @@ public class Event {
 				setLocation(eventView.location.getText());
 				
 				uiDelegate.resetCalendarItems();
-				System.out.println("saving");
 			}
 		};
 		
@@ -294,7 +295,6 @@ public class Event {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//edit view
-				System.out.println("toggle");
 				eventView.toggleEdit();
 			}
 		};
