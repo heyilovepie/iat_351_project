@@ -70,6 +70,9 @@ public class CalendarView extends ModeView {
 	
 	public void setEvents(ArrayList<Event> events) {
 		this.events = events;
+		bottomPanel.removeAll();
+		days.clear();
+		createCalendar();
 		addEvents();
 	}
 
