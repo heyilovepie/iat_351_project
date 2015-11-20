@@ -21,9 +21,9 @@ public class Main {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 				frame.setLayout(new FlowLayout());
-				frame.add(new EnterPanel("Event: ", 20));
-				frame.add(new EnterPanel("Time: ", 20));
-				frame.add(new EnterPanel("Location: ", 20));
+				frame.add(new EnterPanel("Event: "));
+				frame.add(new EnterPanel("Time: "));
+				frame.add(new EnterPanel("Location: "));
 			}
 		});
 	} // main

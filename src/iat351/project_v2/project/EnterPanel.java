@@ -24,11 +24,11 @@ public class EnterPanel extends JPanel{
 	Border editBorder;
 	Border viewBorder;
 	
-	public EnterPanel(String name, int text_width){
-		this(name, text_width, true);
+	public EnterPanel(String name){
+		this(name, true);
 	}
 	
-	public EnterPanel(String name, int text_width, boolean editable){
+	public EnterPanel(String name, boolean editable){
 		this.editable = editable;
 		
 		//init panel
@@ -36,7 +36,7 @@ public class EnterPanel extends JPanel{
 		setBorder(BORDER);
 		
 		editBorder = BorderFactory.createLoweredBevelBorder();
-		viewBorder = BorderFactory.createEmptyBorder();
+		viewBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
 		
 		//make components
 		label = new JLabel(name, SwingConstants.RIGHT);
@@ -47,6 +47,7 @@ public class EnterPanel extends JPanel{
 		
 		//at to panel
 		add(label);
+		add(Box.createRigidArea(new Dimension(10 ,0)));
 		add(textField);
 	}
 	

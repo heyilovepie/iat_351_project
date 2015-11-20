@@ -72,7 +72,7 @@ public class NoteView extends UIDelegateFrame {
 	//init
 	protected void initPanels() {	
 		//init
-		title = new EnterPanel("Title", 20, true);
+		title = new EnterPanel("Title", true);
 		
 		topPanel = new JPanel();
 		middlePanel = new JPanel();

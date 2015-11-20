@@ -1,37 +1,21 @@
 package iat351.project_v2.project;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextPane;
-import javax.swing.JToggleButton;
-import javax.swing.JTree;
 import javax.swing.border.Border;
-import javax.swing.tree.DefaultMutableTreeNode;
 
 public class EventView extends UIDelegateFrame {
-	private static final Border BORDER = BorderFactory.createEmptyBorder(30, 20, 10, 20);
+	private static final Border BORDER = BorderFactory.createEmptyBorder(30, 20, 0, 20);
 	
 	/*
 	 * The Event JFrame
@@ -39,11 +23,10 @@ public class EventView extends UIDelegateFrame {
 
 	// Panels
 	public EnterPanel title, location, date, startTime, endTime, tags;
-	public EnterPanel notes = new EnterPanel("Notes", 10); // TODO temp var add buttons
+	public EnterPanel notes = new EnterPanel("Notes"); // TODO temp var add buttons
 
 	private JPanel addNotePanel;
 	private BottomSavePanel bottomSavePanel;
-	private JPanel editPanel, viewPanel;
 
 	public JButton save, reset, addNote, edit, ok;
 
@@ -65,7 +48,7 @@ public class EventView extends UIDelegateFrame {
 
 	protected void preInit() {
 		// change window size to different that the default
-		WIDTH = 400;
+		WIDTH = 500;
 		HEIGHT = 350;
 		MIN_WINDOW_SIZE = new Dimension((int) WIDTH, (int) HEIGHT);
 	}
@@ -84,24 +67,32 @@ public class EventView extends UIDelegateFrame {
 
 	// init
 	protected void initPanels() {
-		title = new EnterPanel("Event:", 20, isEditing);
-		date = new EnterPanel("Date:", 20, isEditing);
+		title = new EnterPanel("Event:", isEditing);
+		date = new EnterPanel("Date:", isEditing);
 
+		// Place the start time and end time on the same line
 		JPanel timePanel = new JPanel();
-		timePanel.setLayout(new BoxLayout(timePanel, BoxLayout.LINE_AXIS));
-		startTime = new EnterPanel("Start Time:", 5, isEditing);
-		endTime = new EnterPanel("End Time:", 5, isEditing);
-		timePanel.add(startTime);
-		timePanel.add(endTime);
-		add(timePanel);
+		timePanel.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.gridwidth = 1;
+		c.gridheight = 1;
+		c.gridx = 0;
+		c.gridy = 0;
+		startTime = new EnterPanel("Start Time:", isEditing);
+		endTime = new EnterPanel("End Time:", isEditing);
+		timePanel.add(startTime, c);
+		c.gridx = 1;
+		timePanel.add(endTime, c);
 
-		location = new EnterPanel("Location:", 20, isEditing);
-		tags = new EnterPanel("Tags:", 20, isEditing);
+		location = new EnterPanel("Location:", isEditing);
+		tags = new EnterPanel("Tags:", isEditing);
 
 		add(title);
 		add(date);
-		add(startTime);
-		add(endTime);
+		add(timePanel);
 		add(location);
 		add(tags);
 
