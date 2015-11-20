@@ -100,16 +100,16 @@ public class CalendarView extends ModeView {
 
 	private void createSidePanel(Dimension sidePanelSize) {
 		btnNewEvent = createButton("New Event");
-		JLabel tagsLabel = new JLabel("Tags");
-		// JSeparator separator = new JSeparator();
-		JCheckBox placeholderCheckBox = new JCheckBox("IAT 351");
+//		JLabel tagsLabel = new JLabel("Tags");
+//		// JSeparator separator = new JSeparator();
+//		JCheckBox placeholderCheckBox = new JCheckBox("IAT 351");
 
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.setPreferredSize(sidePanelSize);
 		sidePanel.add(btnNewEvent);
-		sidePanel.add(tagsLabel);
+//		sidePanel.add(tagsLabel);
 		// sidePanel.add(separator); // separator hides the components under it for some reason
-		sidePanel.add(placeholderCheckBox);
+//		sidePanel.add(placeholderCheckBox);
 	}
 
 	private void createTopPanel() {
@@ -124,9 +124,10 @@ public class CalendarView extends ModeView {
 
 		topPanel.setBackground(Color.GRAY);
 		topPanel.add(monthLabel);
-		topPanel.add(btnMonth);
-		topPanel.add(btnAgenda);
-		topPanel.add(btnToday);
+		// TODO implement after milestone 3
+//		topPanel.add(btnMonth);
+//		topPanel.add(btnAgenda);
+//		topPanel.add(btnToday);
 	}
 
 	private void createCalendar() {		
