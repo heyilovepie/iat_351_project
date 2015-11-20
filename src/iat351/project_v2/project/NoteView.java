@@ -79,7 +79,6 @@ public class NoteView extends UIDelegateFrame {
 		bottomSavePanel = new BottomSavePanel(true);
 		
 		//top
-		topPanel.setBackground(Color.GRAY);
 		topPanel.add(notebookView.getTopPanel());
 		//bottom
 		middlePanel.setLayout(new BorderLayout());

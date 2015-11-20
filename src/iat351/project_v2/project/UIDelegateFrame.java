@@ -1,6 +1,7 @@
 package iat351.project_v2.project;
 
 
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,9 +14,10 @@ abstract public class UIDelegateFrame extends JFrame {
 	 */
 	
 	// Constants
-	protected static int WIDTH = 1000;
+	protected static int WIDTH = 1200;
 	protected static int HEIGHT = 600;
 	protected static Dimension MIN_WINDOW_SIZE = new Dimension((int) (WIDTH / 1.5), (int) (HEIGHT / 1.5));
+	protected static final Color COLOR = new Color(80, 140, 190);
 	
 	public UIDelegateFrame() {
 		constructor();

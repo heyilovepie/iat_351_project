@@ -15,14 +15,9 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 public class CalendarView extends ModeView {
 	/*
@@ -61,7 +56,7 @@ public class CalendarView extends ModeView {
 			// Create event label
 			JButton eventLabel = new JButton(title);
 			eventLabel.setOpaque(true);
-			eventLabel.setBackground(Color.CYAN);
+			eventLabel.setBackground(COLOR.brighter());
 			
 			//add action listener
 			ActionListener eventAction = new ActionListener() { 
@@ -122,7 +117,7 @@ public class CalendarView extends ModeView {
 		uiDelegate.updateToggleButtons(btnMonth, btnAgenda);
 		btnToday = createButton("Today");
 
-		topPanel.setBackground(Color.GRAY);
+		topPanel.setBackground(COLOR);
 		topPanel.add(monthLabel);
 		// TODO implement after milestone 3
 //		topPanel.add(btnMonth);
@@ -133,8 +128,6 @@ public class CalendarView extends ModeView {
 	private void createCalendar() {		
 		// Setup panel
 		bottomPanel.setLayout(new GridBagLayout());
-		bottomPanel.setBackground(Color.GRAY);
-		bottomPanel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		
 		// Setup gridbag constraints
 		c.fill = GridBagConstraints.BOTH;
@@ -150,7 +143,7 @@ public class CalendarView extends ModeView {
 		for (int col = 0; col < MAX_COLUMNS; col++) {
 			JLabel label = new JLabel(dayNames[i]);
 			label.setOpaque(true);
-			label.setBackground(new Color(200, 230, 200));
+			label.setBackground(COLOR.brighter());
 			bottomPanel.add(label, c);
 			c.gridx++;
 			i++;

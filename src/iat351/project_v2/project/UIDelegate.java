@@ -32,9 +32,7 @@ public class UIDelegate extends UIDelegateFrame {
 	 */
 	
 	// Constants
-	private static final int WIDTH = 1200;
-	private static final int HEIGHT = 600;
-	private static final Dimension SIDE_PANEL_SIZE = new Dimension(WIDTH / 6, HEIGHT);
+	private static final Dimension SIDE_PANEL_SIZE = new Dimension(200, 600);
 
 	//Model
 	// TODO load from file
@@ -113,7 +111,7 @@ public class UIDelegate extends UIDelegateFrame {
 		sidePanel = new JPanel();
 		
 		//top
-		topPanel.setBackground(Color.GRAY);
+		topPanel.setBackground(COLOR);
 		topPanel.add(calendarView.getTopPanel());
 		bottomPanel.setLayout(new BorderLayout());
 		bottomPanel.add(calendarView.getBottomPanel(), BorderLayout.CENTER);
