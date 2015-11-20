@@ -1,15 +1,22 @@
 package iat351.project_v2.project;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 public class EnterPanel extends JPanel{
+	private static final Border BORDER = BorderFactory.createEmptyBorder(0, 0, 10, 0);
+	private static final int LABEL_WIDTH = 70;
 	
 	JLabel label;
 	JTextField textField;
@@ -22,19 +29,20 @@ public class EnterPanel extends JPanel{
 	}
 	
 	public EnterPanel(String name, int text_width, boolean editable){
-		
 		this.editable = editable;
 		
 		//init panel
-		setLayout(new FlowLayout());
-		setBackground(Color.WHITE);
+		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
+		setBorder(BORDER);
 		
 		editBorder = BorderFactory.createLoweredBevelBorder();
 		viewBorder = BorderFactory.createEmptyBorder();
 		
 		//make components
-		label = new JLabel(name);	
-		textField = new JTextField(text_width);	
+		label = new JLabel(name, SwingConstants.RIGHT);
+		label.setPreferredSize(new Dimension(LABEL_WIDTH, 0));
+		
+		textField = new JTextField();
 		editableFormat();
 		
 		//at to panel
