@@ -187,7 +187,7 @@ public class CalendarView extends ModeView {
 		// Create JPanel with mouse listener
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-		panel.setBorder(BorderFactory.createMatteBorder(0, 1, 1, 0, Color.LIGHT_GRAY));
+		panel.setBorder(BorderFactory.createMatteBorder(1, 1, 0, 0, Color.LIGHT_GRAY));
 		panel.setBackground(Color.WHITE);
 		panel.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

@@ -1,7 +1,5 @@
 package iat351.project_v2.project;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 
