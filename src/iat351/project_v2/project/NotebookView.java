@@ -6,10 +6,12 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -18,24 +20,34 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public class NotebookView extends ModeView {
 	/*
-	 * Stores the view components from the notebook mode so that it can be switched
+	 * Stores the view components from the notebook mode so that it can be
+	 * switched
 	 */
-	private JTextPane textPane = new JTextPane(); //where you add the note to
-	private JScrollPane scrollPane = new JScrollPane(textPane); //the scroll pane around it
-	
+	private JTextPane textPane = new JTextPane(); // where you add the note to
+	private JScrollPane scrollPane = new JScrollPane(textPane); // the scroll
+																// pane around
+																// it
+
 	private JButton btnNewNotebook;
-	
+
 	public NotebookView(UIDelegateFrame uiDelegateFrame, Dimension sidePanelSize) {
 		super(uiDelegateFrame);
-		
+
 		// TODO refactor constructor
 		textPane.setText("This is a text pane");
-		
-		btnNewNotebook = createButton("New Notebook");
+
+		// Side panel
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.setPreferredSize(sidePanelSize);
-		sidePanel.add(btnNewNotebook);
-		
+
+		// Button
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new BorderLayout());
+		btnPanel.setBorder(BorderFactory.createEmptyBorder(0, 12, 10, 14));
+		btnNewNotebook = createButton("New Notebook");
+		btnPanel.add(btnNewNotebook, BorderLayout.NORTH);
+		sidePanel.add(btnPanel);
+
 		// Font families
 		JComboBox<String> fontsDropdown = new JComboBox<String>();
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -59,16 +71,16 @@ public class NotebookView extends ModeView {
 		topPanel.add(new JButton("B"));
 		topPanel.add(new JButton("I"));
 		topPanel.add(new JButton("U"));
-		
+
 		bottomPanel.setLayout(new BorderLayout());
 		bottomPanel.add(scrollPane, BorderLayout.CENTER);
 	} // Constructor
-	
+
 	public NotebookView(UIDelegateFrame uiDelegateFrame, Dimension sidePanelSize, String title, String note) {
 		this(uiDelegateFrame, sidePanelSize);
 		textPane.setText(note);
 	}
-	
+
 	private void createMenuItem(JPopupMenu menu, String text) {
 		JMenuItem item = new JMenuItem(text);
 
@@ -117,12 +129,12 @@ public class NotebookView extends ModeView {
 
 		return btn;
 	} // createButton
-	
-	public String getNote(){
+
+	public String getNote() {
 		return textPane.getText();
 	}
-	
-	public void setNote(String note){
+
+	public void setNote(String note) {
 		textPane.setText(note);
 	}
 } // NotebookView

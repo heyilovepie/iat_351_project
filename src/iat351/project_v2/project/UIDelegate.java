@@ -3,6 +3,7 @@ package iat351.project_v2.project;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 
 public class UIDelegate extends UIDelegateFrame {
@@ -109,8 +111,11 @@ public class UIDelegate extends UIDelegateFrame {
 		mainPanel.add(bottomPanel, BorderLayout.CENTER);
 		
 		//side 
+		FlowLayout layout = new FlowLayout();
+		layout.setHgap(0);
+		layout.setVgap(10);
+		sidePanel.setLayout(layout);
 		sidePanel.setPreferredSize(SIDE_PANEL_SIZE);
-		sidePanel.setBackground(Color.LIGHT_GRAY);
 		sidePanel.add(btnCalendar);
 		sidePanel.add(btnNotebook);
 		sidePanel.add(calendarView.getSidePanel());

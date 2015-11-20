@@ -1,5 +1,6 @@
 package iat351.project_v2.project;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
+import javax.swing.border.Border;
 
 public class CalendarView extends ModeView {
 	/*
@@ -94,17 +96,17 @@ public class CalendarView extends ModeView {
 	}
 
 	private void createSidePanel(Dimension sidePanelSize) {
-		btnNewEvent = createButton("New Event");
-//		JLabel tagsLabel = new JLabel("Tags");
-//		// JSeparator separator = new JSeparator();
-//		JCheckBox placeholderCheckBox = new JCheckBox("IAT 351");
-
+		// Side panel
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.setPreferredSize(sidePanelSize);
-		sidePanel.add(btnNewEvent);
-//		sidePanel.add(tagsLabel);
-		// sidePanel.add(separator); // separator hides the components under it for some reason
-//		sidePanel.add(placeholderCheckBox);
+		
+		// Button
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new BorderLayout());
+		btnPanel.setBorder(BorderFactory.createEmptyBorder(0, 12, 10, 14));
+		btnNewEvent = createButton("New Event");
+		btnPanel.add(btnNewEvent, BorderLayout.NORTH);
+		sidePanel.add(btnPanel);
 	}
 
 	private void createTopPanel() {
