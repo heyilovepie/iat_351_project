@@ -300,7 +300,7 @@ public class Event {
 		ActionListener deleteAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// delete event from model and view, close event view
+				// delete event from model and calendar view, close event view
 				model.deleteEvent(title);
 				uiDelegate.resetCalendarItems();
 				eventView.dispose();

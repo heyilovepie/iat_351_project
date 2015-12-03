@@ -45,7 +45,7 @@ public class Model {
 		int index = 0;
 		for (int i = 0; i < events.size(); i++) {
 			Event e = events.get(i);
-			if (e.getTitle() == title) {
+			if (e.getTitle().equals(title)) {
 				index = i;
 			}
 		}
