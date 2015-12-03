@@ -301,7 +301,7 @@ public class Event {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// delete event from model and view, close event view
-				model.deleteLastEventAdded();
+				model.deleteEvent(title);
 				uiDelegate.resetCalendarItems();
 				eventView.dispose();
 			}

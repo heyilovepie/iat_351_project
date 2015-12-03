@@ -41,9 +41,15 @@ public class Model {
 		return event;
 	}
 	
-	public void deleteLastEventAdded() {
-		Event lastEventAdded = events.get(events.size() - 1);
-		events.remove(lastEventAdded);
+	public void deleteEvent(String title) {
+		int index = 0;
+		for (int i = 0; i < events.size(); i++) {
+			Event e = events.get(i);
+			if (e.getTitle() == title) {
+				index = i;
+			}
+		}
+		events.remove(index);
 	}
 	
 	public Date getDate(int year, int month,int day, int hrs,int min,int sec){
