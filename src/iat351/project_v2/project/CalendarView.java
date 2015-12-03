@@ -54,6 +54,7 @@ public class CalendarView extends ModeView {
 			// Get event title and date
 			String title = event.getTitle();
 			int day = event.getDay(); // TODO will need to change this to e.getDate() for other months/years
+			System.out.println(day);
 			
 			// Create event label
 			JButton eventLabel = new JButton(title);
@@ -72,7 +73,7 @@ public class CalendarView extends ModeView {
 			eventLabel.addActionListener(eventAction);
 			
 			// Add event label to calendar
-			days.get(day - 1).add(eventLabel);
+			days.get(day + 1).add(eventLabel);
 		}
 	}
 	
