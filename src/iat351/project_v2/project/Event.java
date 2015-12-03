@@ -288,20 +288,30 @@ public class Event {
 			}
 		};
 		
-		ActionListener editAction = new ActionListener() { 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				//edit view
-				eventView.toggleEdit();
-			}
-		};
-		
 		ActionListener resetAction = new ActionListener() { 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//change to view mode and reset values
 				eventView.toggleEdit();
 				setDefaultValuesFor(eventView);
+			}
+		};
+		
+		ActionListener deleteAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// delete event from model and view, close event view
+				model.deleteLastEventAdded();
+				uiDelegate.resetCalendarItems();
+				eventView.dispose();
+			}
+		};
+		
+		ActionListener editAction = new ActionListener() { 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//edit view
+				eventView.toggleEdit();
 			}
 		};
 		
@@ -323,7 +333,7 @@ public class Event {
 		};
 		
 		eventView.addNote.addActionListener(addNoteAction);
-		eventView.addActionListeners(saveAction, resetAction, okAction, editAction, okAction);
+		eventView.addActionListeners(saveAction, resetAction, deleteAction, editAction, okAction);
 		//end of adding ActionListeners
 		
 	}

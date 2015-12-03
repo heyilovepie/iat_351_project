@@ -41,6 +41,11 @@ public class Model {
 		return event;
 	}
 	
+	public void deleteLastEventAdded() {
+		Event lastEventAdded = events.get(events.size() - 1);
+		events.remove(lastEventAdded);
+	}
+	
 	public Date getDate(int year, int month,int day, int hrs,int min,int sec){
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year + 1900, month, day, hrs, min, sec);
