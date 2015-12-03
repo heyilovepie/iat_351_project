@@ -110,7 +110,7 @@ public class CalendarView extends ModeView {
 	}
 
 	private void createTopPanel() {
-		JLabel monthLabel = new JLabel("November 2015");
+		JLabel monthLabel = new JLabel("December 2015");
 		monthLabel.setFont(monthLabel.getFont().deriveFont(20.0f));
 		monthLabel.setForeground(Color.WHITE);
 
@@ -169,14 +169,14 @@ public class CalendarView extends ModeView {
 	} // createCalendar
 	
 	private void createDayPanels() {
-		int i = 1;
-		boolean isCurrMonth = true; // For font colour
+		int i = 29;
+		boolean isCurrMonth = false; // For font colour
 		for (int row = 0; row < MAX_ROWS; row++) {
 			for (int col = 0; col < MAX_COLUMNS; col++) {
 				// Reset the day to 1 if it reaches 31
 				if (i == 31) {
 					i = 1;
-					isCurrMonth = false;
+					isCurrMonth = !isCurrMonth;
 				}
 				
 				days.add(createDayPanel(i, isCurrMonth));
